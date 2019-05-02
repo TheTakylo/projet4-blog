@@ -1,0 +1,17 @@
+{
+    "name": "thetakylo/projet4-blog",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sébastien Thuret",
+            "email": "sebastien.thuret@yahoo.fr"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": { 
+            "Framework\\": "framework",
+            "App\\": "app"
+        }
+    }
+}

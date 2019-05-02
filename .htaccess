@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /formation/projet4-blog/
+
+RewriteCond %{REQUEST_URI} !^/formation/projet4-blog/public/.*$
+RewriteRule ^(.*)$ public/$1
+
+RewriteRule ^public/.*$ public/index.php [NC,L]
