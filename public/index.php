@@ -11,6 +11,7 @@ require '../vendor/autoload.php';
 use Framework\Http\Request;
 use Framework\Http\Response;
 use Framework\Router\Router;
+use Framework\Database\Database;
 
 $request = new Request();
 
@@ -20,6 +21,7 @@ define('SITE_URL', $router->getRoot());
 
 require '../routes.php';
 
+$database = new Database('localhost', 'root', 'root', 'projet4');
 
 if($route = $router->match()) {
     
