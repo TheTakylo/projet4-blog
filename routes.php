@@ -5,5 +5,5 @@ $router->setRoutes([
     ['/contact', 'pages@contact'],
 
     ['/chapitres', 'chapters@index'],
-    ['/chapitre-:id', 'chapters@show'],
+    ['/chapitre/:slug', 'chapters@show'],
 ]);
