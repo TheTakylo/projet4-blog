@@ -6,7 +6,6 @@ use Framework\Http\Response;
 use Framework\Templating\View;
 use Framework\Http\RedirectResponse;
 use Framework\Templating\Helpers\UrlsHelper;
-use Framework\Http\Router\Exception\RouteNotFoundException;
 
 abstract class AbstractController
 {
