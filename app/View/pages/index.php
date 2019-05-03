@@ -1,4 +1,4 @@
-<?php $title = "Jean Fortroche - Billet simple pour l'Alaska " ?>
+<?php $title = "Accueil" ?>
 
 <div class="row">
   <div class="col-md-8 blog-main">

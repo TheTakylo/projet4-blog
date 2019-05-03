@@ -1,3 +1,5 @@
+<?php $title = "Tous les chapitres" ?>
+
 <div class="row">
     <div class="col-md-8 offset-md-2">
         <?php foreach($chapters as $chapter): ?>
