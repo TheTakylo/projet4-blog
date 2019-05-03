@@ -3,6 +3,7 @@ ini_set("display_errors", "on");
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__DIR__));
+define('CORE', ROOT . DS . 'framework');
 define('TEMPLATE', ROOT . DS . 'app' . DS . 'View' . DS);
 
 require '../vendor/autoload.php';
@@ -21,7 +22,7 @@ require '../routes.php';
 
 
 if($route = $router->match()) {
-
+    
     $controller = 'App\\Controller\\' . ucfirst($route->getController()) . 'Controller';
     $controller = new $controller;
 

@@ -2,9 +2,7 @@
 
 namespace Framework\Templating;
 
-use Framework\Templating\Helpers\UrlsHelper;
 use Framework\Templating\Helpers\AssetsHelper;
-use Framework\Templating\Helpers\PartialsHelper;
 use Framework\Templating\Exception\TemplateNotFoundException;
 
 class View
@@ -25,7 +23,7 @@ class View
     */
     private $params;
     
-    public function __construct(string $file, string $layout, array $params)
+    public function __construct(string $file, ?string $layout, array $params)
     {
         $this->file = $file;
         $this->layout = $layout;
@@ -34,9 +32,9 @@ class View
     }
 
     private function loadHelpers() {
-        $this->assets = new AssetsHelper();
-        $this->partials = new PartialsHelper();
-        $this->urls = new UrlsHelper();
+        require CORE . '/Templating/Helpers/Assets.php';
+        require CORE . '/Templating/Helpers/Urls.php';
+        require CORE . '/Templating/Helpers/Partials.php';
     }
     
     /**
@@ -48,12 +46,12 @@ class View
             throw new TemplateNotFoundException("Template not found");
         }
         
-        $this->loadHelpers();
-
+        
         extract($this->params);
+
+        $this->loadHelpers();
         
         ob_start();
-        
         
         require TEMPLATE . $this->file;
         

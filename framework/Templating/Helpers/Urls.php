@@ -1,10 +1,8 @@
 <?php
 
-namespace Framework\Templating\Helpers;
-
 use Framework\Http\Router\Exception\RouteNotFoundException;
 
-class UrlsHelper
+class Urls
 {
 
     static function route(string $routeName): string

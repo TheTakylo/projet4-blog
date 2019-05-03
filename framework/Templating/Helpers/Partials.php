@@ -1,10 +1,8 @@
 <?php
 
-namespace Framework\Templating\Helpers;
-
 use Framework\Templating\Exception\PartialNotFoundException;
 
-class PartialsHelper
+class Partials
 {
 
     public function load(string $partial)
