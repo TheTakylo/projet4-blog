@@ -16,5 +16,10 @@ class PagesController extends AbstractController
         
         return $this->render('pages/index.php', ['chapters' => $chapters]);
     }
+
+    public function contact(): Response
+    {
+        return $this->render('pages/contact.php');
+    }
     
 }
