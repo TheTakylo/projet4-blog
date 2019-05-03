@@ -76,7 +76,9 @@ class Router
         $path .= '://' . $server['SERVER_NAME'];
         $path .= str_replace('index.php', '', $server['SCRIPT_NAME']);
 
-        return $path;
+        return trim($path, '/');
     }
+
+
 
 }
