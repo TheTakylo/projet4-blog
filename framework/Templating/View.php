@@ -2,6 +2,7 @@
 
 namespace Framework\Templating;
 
+use Framework\Templating\Helpers\UrlsHelper;
 use Framework\Templating\Helpers\AssetsHelper;
 use Framework\Templating\Helpers\PartialsHelper;
 use Framework\Templating\Exception\TemplateNotFoundException;
@@ -35,6 +36,7 @@ class View
     private function loadHelpers() {
         $this->assets = new AssetsHelper();
         $this->partials = new PartialsHelper();
+        $this->urls = new UrlsHelper();
     }
     
     /**

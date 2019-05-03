@@ -5,6 +5,7 @@ namespace Framework\Controller;
 use Framework\Http\Response;
 use Framework\Templating\View;
 use Framework\Http\RedirectResponse;
+use Framework\Templating\Helpers\UrlsHelper;
 use Framework\Http\Router\Exception\RouteNotFoundException;
 
 abstract class AbstractController
@@ -30,15 +31,9 @@ abstract class AbstractController
         return new RedirectResponse($path, $statusCode);
     }
 
-    public function redirectTo($route, $statusCode = 200)
+    public function redirectTo($routeName, $statusCode = 200)
     {
-        global $router;
-        
-        if(!$route = $router->find($route)) {
-            throw new RouteNotFoundException;
-        }
-
-        return $this->redirect($route->getPath(), $statusCode);
+        return $this->redirect(UrlsHelper::route($routeName), $statusCode);
     }
 
 }
