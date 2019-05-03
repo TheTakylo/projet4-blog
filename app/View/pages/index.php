@@ -8,7 +8,7 @@
         <h2 class="blog-post-title"><?= $chapter->title; ?></h2>
         <p class="blog-post-meta">Le <?= date("d M Y", $chapter->created_at); ?> par <a href="#">Jean Fortroche</a></p>
         
-        <p><?=  ?></p>
+        <p><?= Text::truncate($chapter->content); ?></p>
       </div>
     <?php endforeach; ?>
     

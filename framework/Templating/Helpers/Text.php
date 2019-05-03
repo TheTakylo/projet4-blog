@@ -8,8 +8,10 @@ class Text
     {
         if(strlen($text) > $limit) {
             $text = $text.' ';
-            $text = substr($text, 0, $chars);
+            $text = substr($text, 0, $limit);
             $text = substr($text, 0, strrpos($text ,' '));
+
+            $text .= '...';
         }
 
         return $text;
