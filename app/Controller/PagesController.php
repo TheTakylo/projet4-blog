@@ -12,7 +12,7 @@ class PagesController extends AbstractController
     
     public function index(): Response
     {
-        $chapters = (new Chapters())->all();
+        $chapters = (new Chapters())->selectForHome();
         
         return $this->render('pages/index.php', ['chapters' => $chapters]);
     }
