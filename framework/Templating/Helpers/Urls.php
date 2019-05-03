@@ -5,7 +5,7 @@ use Framework\Http\Router\Exception\RouteNotFoundException;
 class Urls
 {
 
-    static function route(string $routeName): string
+    static function route(string $routeName, $parameters = false): string
     {
         global $router;
 
@@ -13,7 +13,13 @@ class Urls
             throw new RouteNotFoundException;
         }
 
-        return trim(SITE_URL . $route->getPath(), '/');
+        $path = $route->getPath();
+
+        if($parameters) {
+            $path = $route->generate(($parameters));
+        }
+
+        return trim(SITE_URL . $path, '/');
     }
 
 

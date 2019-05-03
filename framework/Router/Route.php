@@ -64,6 +64,17 @@ class Route
 
         return true;
     }
+
+    public function generate($parameters): string
+    {
+        $path = $this->path;
+
+        foreach($parameters as $key => $value) {
+            $path = str_replace(":{$key}", $value, $path);
+        }
+
+        return $path;
+    }
     
     /**
     * Get the value of action

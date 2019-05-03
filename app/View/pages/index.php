@@ -9,6 +9,7 @@
         <p class="blog-post-meta">Le <?= date("d M Y", $chapter->created_at); ?> par <a href="#">Jean Fortroche</a></p>
         
         <p><?= Text::truncate($chapter->content); ?></p>
+        <a href="<?= Urls::route('chapters@show', ['id' => $chapter->id]) ?>" class="d-block mb-2">Voir le chapitre</a>
       </div>
     <?php endforeach; ?>
     
