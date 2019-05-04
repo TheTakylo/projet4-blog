@@ -36,6 +36,7 @@ class View
         require CORE . '/Templating/Helpers/Urls.php';
         require CORE . '/Templating/Helpers/Partials.php';
         require CORE . '/Templating/Helpers/Text.php';
+        require CORE . '/Templating/Helpers/Session.php';
     }
     
     /**
