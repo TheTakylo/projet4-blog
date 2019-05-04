@@ -1,4 +1,5 @@
 <?php
+session_start();
 ini_set("display_errors", "on");
 
 define('DS', DIRECTORY_SEPARATOR);

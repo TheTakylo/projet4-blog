@@ -8,6 +8,7 @@ use Framework\Templating\View;
 use Framework\Helpers\UrlsHelper;
 use Framework\Configuration\Store;
 use Framework\Http\RedirectResponse;
+use Framework\Session\SessionManager;
 
 abstract class AbstractController
 {
@@ -58,6 +59,11 @@ abstract class AbstractController
         $item = 'get' . ucfirst($item);
 
         return Store::getInstance()->get('Config')->$item();
+    }
+
+    public function session()
+    {
+        return new SessionManager();
     }
 
 }
