@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Framework\Http\Response;
 use Framework\Controller\AbstractController;
+use App\Model\Chapters;
 
 class AdminController extends AbstractController
 {
@@ -22,6 +23,13 @@ class AdminController extends AbstractController
     public function index(): Response
     {
         return $this->render('admin/index.php');
+    }
+
+    public function chapters(): Response
+    {
+        $chapters = (new Chapters())->all();
+
+        return $this->render('admin/chapters/list.php', ['chapters' => $chapters]);
     }
 
 }
