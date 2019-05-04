@@ -30,6 +30,11 @@ class Request
         return $this->SERVER['REQUEST_METHOD'];
     }
 
+    public function getData(): array
+    {
+        return $this->POST;
+    }
+
 
     public function getServer()
     {
