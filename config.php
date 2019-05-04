@@ -18,7 +18,10 @@ return [
     
         ['/admin', 'admin@index'],
         ['/admin/login', 'security@login']
+    ],
+
+    'Admin' => [
+        'username' => 'jfortroche',
+        'password' => 'jfortroche' 
     ]
-
-
 ];

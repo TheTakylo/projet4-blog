@@ -8,14 +8,18 @@
     <link rel="stylesheet" href="<?= Assets::css('admin/bootstrap.sign-in.css'); ?>">
 </head>
 <body class="text-center">
-    <form class="form-signin" method="post">
+    <form class="form-signin" method="POST">
         
     <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+    
+        <?php if(isset($form_error)): ?>
+            <div class="alert alert-danger">Identifiants incorrects</div>
+        <?php endif; ?>
 
-        <label for="inputEmail" class="sr-only">Identifiant</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Identifiant" required autofocus>
+        <label for="inputUsername" class="sr-only">Identifiant</label>
+        <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Identifiant" required autofocus>
         <label for="inputPassword" class="sr-only">Mot de passe</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>
 
         <a href="<?= Urls::route('pages@index'); ?>" class="d-block mt-3">Retour au site</a>
