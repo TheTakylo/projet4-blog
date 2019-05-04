@@ -1,5 +1,7 @@
 <?php
 
+namespace Framework\Templating\Helpers;
+
 use Framework\Http\Router\Exception\RouteNotFoundException;
 
 class Urls

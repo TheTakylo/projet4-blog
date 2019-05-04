@@ -6,4 +6,7 @@ $router->setRoutes([
 
     ['/chapitres', 'chapters@index'],
     ['/chapitre/:slug', 'chapters@show'],
+
+    ['/admin', 'admin@index'],
+    ['/admin/login', 'security@login']
 ]);
