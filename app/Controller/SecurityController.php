@@ -29,4 +29,11 @@ class SecurityController extends AbstractController
         return $this->render('security/login.php', $data);
     }
 
+    public function logout()
+    {
+        $this->session()->clear();
+
+        return $this->redirectTo('pages@index');
+    }
+
 }

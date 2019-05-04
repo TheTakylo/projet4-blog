@@ -17,7 +17,11 @@ return [
         ['/chapitre/:slug', 'chapters@show'],
     
         ['/admin', 'admin@index'],
-        ['/admin/login', 'security@login']
+        ['/admin/chapitres', 'admin@chapters'],
+        ['/admin/commentaires', 'admin@comments'],
+
+        ['/admin/login', 'security@login'],
+        ['/admin/logout', 'security@logout']
     ],
 
     'Admin' => [

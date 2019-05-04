@@ -31,7 +31,7 @@ abstract class AbstractController
 
     public function redirect($path, $statusCode = 200)
     {
-        return new RedirectResponse($path, $statusCode);
+        return (new RedirectResponse($path, $statusCode));
     }
 
     public function redirectTo($routeName, $statusCode = 200)

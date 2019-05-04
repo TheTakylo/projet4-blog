@@ -20,4 +20,9 @@ class SessionManager
         return $_SESSION[$key] ?? null;
     }
 
+    public function clear()
+    {
+        session_destroy();
+    }
+
 }
