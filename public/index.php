@@ -19,7 +19,8 @@ $config = new ConfigurationParser(ROOT . DS . 'config.php');
 $store = Store::getInstance();
 
 $store->set('Database', (new Database($config->getDatabase()))->getConnection());
-$store->set('Router', new Router($config->getRoutes(), Request::all()));
+$store->set('Request', Request::all());
+$store->set('Router', new Router($config->getRoutes(), $store->get('Request')));
 
 define('SITE_URL', $store->getRouter()->getRoot());
 

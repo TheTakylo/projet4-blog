@@ -2,9 +2,11 @@
 
 namespace Framework\Controller;
 
+use Framework\Http\Request;
 use Framework\Http\Response;
 use Framework\Templating\View;
 use Framework\Helpers\UrlsHelper;
+use Framework\Configuration\Store;
 use Framework\Http\RedirectResponse;
 
 abstract class AbstractController
@@ -34,6 +36,16 @@ abstract class AbstractController
     public function redirectTo($routeName, $statusCode = 200)
     {
         return $this->redirect(UrlsHelper::route($routeName), $statusCode);
+    }
+
+    public function getDatabase()
+    {
+        return Store::getInstance()->getDatabase();
+    }
+
+    public function getRequest(): Request
+    {
+        return Store::getInstance()->get('Request');
     }
 
 }
