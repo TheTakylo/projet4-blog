@@ -18,9 +18,11 @@ class Router
      */
     private $request;
 
-    public function __construct(Request $request)
+    public function __construct(array $routes, Request $request)
     {
         $this->request = $request;
+
+        $this->setRoutes($routes);
     }
     
     /**
@@ -30,7 +32,7 @@ class Router
      *
      * @return void
      */
-    public function setRoutes(array $routes)
+    private function setRoutes(array $routes)
     {
         foreach($routes as $route) {
             array_push($this->routes, new Route($route[0], $route[1]));
@@ -78,7 +80,5 @@ class Router
 
         return trim($path, '/');
     }
-
-
 
 }

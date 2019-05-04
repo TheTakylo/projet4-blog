@@ -41,4 +41,9 @@ class Request
         return (int) $this->SERVER['SERVER_PORT'] === 443;
     }
 
+    static function all()
+    {
+        return new static();
+    }
+
 }

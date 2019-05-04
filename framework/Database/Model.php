@@ -2,6 +2,8 @@
 
 namespace Framework\Database;
 
+use Framework\Configuration\Store;
+
 abstract class Model
 {
     
@@ -9,9 +11,7 @@ abstract class Model
     
     public function __construct()
     {
-        global $database;
-
-        $this->db = $database->getDatabase();
+        $this->db = Store::getInstance()->getDatabase();
     }
 
     // protected function hydrate(array $data)

@@ -4,8 +4,8 @@ namespace Framework\Controller;
 
 use Framework\Http\Response;
 use Framework\Templating\View;
+use Framework\Helpers\UrlsHelper;
 use Framework\Http\RedirectResponse;
-use Framework\Templating\Helpers\UrlsHelper;
 
 abstract class AbstractController
 {

@@ -12,18 +12,18 @@ use Framework\Http\Request;
 use Framework\Http\Response;
 use Framework\Router\Router;
 use Framework\Database\Database;
+use Framework\Configuration\Store;
+use Framework\Configuration\ConfigurationParser;
 
-$request = new Request();
+$config = new ConfigurationParser(ROOT . DS . 'config.php');
+$store = Store::getInstance();
 
-$router = new Router($request);
+$store->set('Database', (new Database($config->getDatabase()))->getConnection());
+$store->set('Router', new Router($config->getRoutes(), Request::all()));
 
-define('SITE_URL', $router->getRoot());
+define('SITE_URL', $store->getRouter()->getRoot());
 
-require '../routes.php';
-
-$database = new Database('localhost', 'root', 'root', 'projet4');
-
-if($route = $router->match()) {
+if($route = $store->getRouter()->match()) {
     
     $controller = 'App\\Controller\\' . ucfirst($route->getController()) . 'Controller';
     $controller = new $controller;
@@ -34,9 +34,7 @@ if($route = $router->match()) {
         return;
     }
 
-
-
-    echo $response->send();
+    return $response->send();
 
 } else {
     var_dump($route);
