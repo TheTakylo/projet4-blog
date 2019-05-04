@@ -10,7 +10,7 @@ class SecurityController extends AbstractController
 
     public function login(): Response
     {
-        return (new Response)->setContent(("Login"));
+        return $this->render('security/login.php');
     }
 
 }

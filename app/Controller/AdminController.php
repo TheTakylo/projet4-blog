@@ -10,7 +10,7 @@ class AdminController extends AbstractController
 
     public function index(): Response
     {
-        return $this->redirectTo('security@login');
+        return $this->redirectTo('security@login', 404);
     }
 
 }
