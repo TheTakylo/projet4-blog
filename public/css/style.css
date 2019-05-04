@@ -1,0 +1,10 @@
+.jumbotron-home {
+    background: url(../images/header.jpg) center no-repeat;
+    background-size: cover;
+
+    height: 350px;
+}
+
+.jumbotron-home h1 {
+    line-height: 350px;
+}

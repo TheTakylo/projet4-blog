@@ -1,6 +1,12 @@
 <?php $title = "Accueil" ?>
-
+<div class="jumbotron text-white jumbotron-home">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Billet simple pour l'Alaska</h1>
+    </div>
+  </div>
+  
 <div class="row">
+  
   <div class="col-md-8 blog-main">
 
     <?php foreach($chapters as $chapter): ?>

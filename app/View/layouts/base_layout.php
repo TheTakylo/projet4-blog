@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="<?= Assets::css('bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= Assets::css('bootstrap.blog.css') ?>">
+    <link rel="stylesheet" href="<?= Assets::css('style.css') ?>">
 </head>
 <body>
 <div class="container">
