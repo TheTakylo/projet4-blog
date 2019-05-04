@@ -30,7 +30,7 @@ class Response
     {
         $this->addHeader('Location: ' . $path);
 
-        return $this;
+        return $this->sendHeaders();
     }
     
     public function setStatusCode(int $statusCode): self
@@ -64,19 +64,19 @@ class Response
     {
         return $this->statusCode;
     }
-
+    
     public function getContent()
     {
         return $this->content;
     }
-
+    
     private function addHeader($header)
     {
         array_push($this->headers, $header);
-
+        
         return $this;
     }
-
+    
     private function sendHeaders()
     {
         foreach($this->headers as $header) {
@@ -87,7 +87,6 @@ class Response
     public function send()
     {
         http_response_code($this->getStatusCode());
-
         $this->sendHeaders();
 
         echo $this->getContent();

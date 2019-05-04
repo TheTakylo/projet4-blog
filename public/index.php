@@ -33,10 +33,6 @@ if($route = $store->getRouter()->match()) {
 
     $response = call_user_func_array([$controller, $route->getAction()], $route->getParams());
 
-    if(!$response instanceof Response) {
-        return;
-    }
-
     return $response->send();
 
 } else {
