@@ -11,16 +11,17 @@ abstract class AbstractController
 {
 
     /**
-     * @var string;
+     * @var string $layout
      */
     protected $layout = null;
 
-    public function render($view, $params = []): Response
+    public function render($view, $params = [], int $statusCode = 200): Response
     {
         $view = new View($view, $this->layout, $params);
 
         $response = new Response();
-        $response->setContent($view->generate());
+        $response->setStatusCode($statusCode)
+                 ->setContent($view->generate());
 
         return $response;
     }
