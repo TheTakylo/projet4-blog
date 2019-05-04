@@ -18,6 +18,7 @@ use Framework\Configuration\ConfigurationParser;
 $config = new ConfigurationParser(ROOT . DS . 'config.php');
 $store = Store::getInstance();
 
+$store->set('Config', $config);
 $store->set('Database', (new Database($config->getDatabase()))->getConnection());
 $store->set('Request', Request::all());
 $store->set('Router', new Router($config->getRoutes(), $store->get('Request')));
