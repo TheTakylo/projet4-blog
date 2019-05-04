@@ -20,3 +20,7 @@
     <a class="p-2 text-muted" href="<?= Urls::route('pages@contact'); ?>">Contact</a>
   </nav>
 </div>
+
+<?php if(Session::has('admin')): ?>
+  <div class="alert alert-info font-weight-bold"><a href="<?= Urls::route('admin@index'); ?>" class="text-reset">Acceder à l'administration du site</a></div>
+<?php endif; ?>
