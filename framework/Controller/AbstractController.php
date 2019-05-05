@@ -9,6 +9,7 @@ use Framework\Helpers\UrlsHelper;
 use Framework\Configuration\Store;
 use Framework\Http\RedirectResponse;
 use Framework\Session\SessionManager;
+use Framework\Session\FlashManager;
 
 abstract class AbstractController
 {
@@ -64,6 +65,11 @@ abstract class AbstractController
     public function session()
     {
         return new SessionManager();
+    }
+
+    public function flash()
+    {
+        return new FlashManager();
     }
 
 }

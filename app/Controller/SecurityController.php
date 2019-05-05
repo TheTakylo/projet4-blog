@@ -10,7 +10,6 @@ class SecurityController extends AbstractController
 
     public function login(): Response
     {
-        $data = [];
         $request = $this->getRequest();
 
         if($request->getMethod() === 'POST') {
@@ -22,11 +21,11 @@ class SecurityController extends AbstractController
 
                 return $this->redirectTo('admin@index');
             } else {
-                $data['form_error'] = true;
+                $this->flash()->add('error', 'Identifiants incorrects');
             }
         }
 
-        return $this->render('security/login.php', $data);
+        return $this->render('security/login.php');
     }
 
     public function logout()

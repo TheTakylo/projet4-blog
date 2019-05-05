@@ -12,8 +12,10 @@
         
     <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
     
-        <?php if(isset($form_error)): ?>
-            <div class="alert alert-danger">Identifiants incorrects</div>
+        <?php if(Flash::has('error')): ?>
+            <?php foreach(Flash::get('error') as $error): ?>
+                <div class="alert alert-danger"><?= $error ?></div>
+            <?php endforeach; ?>
         <?php endif; ?>
 
         <label for="inputUsername" class="sr-only">Identifiant</label>
