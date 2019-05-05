@@ -14,13 +14,17 @@
 <div class="row">
     <div class="col-md-8 offset-md-2">
         <form method="post">
+            <?php if(isset($edit)): ?>
+                <input type="hidden" name="_method" value="PUT">
+            <?php endif; ?>
+
             <div class="form-group">
                 <label for="chapterName">Nom du chapitre</label>
-                <input type="text" name="chapterName" class="form-control" id="chapterName">
+                <input value="<?= $chapter->title ?? ''; ?>" type="text" name="chapterName" class="form-control" id="chapterName">
             </div>
             <div class="form-group">
                 <label for="chapterContent">Contenu</label>
-                <textarea rows="20" id="chapterContent" name="chapterContent" class="form-control"></textarea>
+                <textarea rows="20" id="chapterContent" name="chapterContent" class="form-control"><?= $chapter->content ?? ''; ?></textarea>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Valider</button>

@@ -39,8 +39,21 @@ class Chapters extends Model
         return $query->execute([
             ':title' => $title,
             ':content' => $content,
-            ':created_at' => date('Y-m-d G:i:s'),
+            ':created_at' => date('Y-m-d H:i:s'),
             ':slug' => 'dd'
+        ]);
+    }
+
+    public function update(string $title, string $content, int $id)
+    {
+        $query = $this->db->prepare('UPDATE chapters SET title = :title, content = :content, updated_at = :updated_at, slug = :slug WHERE id = :id ');
+
+        return $query->execute([
+            ':title' => $title,
+            ':content' => $content,
+            ':updated_at' => date('Y-m-d H:i:s'),
+            ':slug' => 'ddd',
+            ':id' => $id
         ]);
     }
 

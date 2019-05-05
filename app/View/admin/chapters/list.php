@@ -14,16 +14,16 @@
       <?php foreach($chapters as $chapter): ?>
       <tr>
           <td><?= $chapter->title ?></td>
-          <td><?= date('d/m/Y à H:s', strtotime($chapter->created_at)); ?></td>
+          <td><?= date('d/m/Y à H:i:s', strtotime($chapter->created_at)); ?></td>
           <td>
               <?php if($chapter->updated_at === null): ?>
                -
               <?php else: ?>
-               Modifié le <?= date('d/m/Y à H:s', strtotime($chapter->updated_at)); ?>
+               Modifié le <?= date('d/m/Y à H:i:s', strtotime($chapter->updated_at)); ?>
               <?php endif; ?>
           </td>
           <td>
-              <a href="#" class="btn btn-sm btn-secondary">Modifier</a>
+              <a href="<?= Urls::route('admin@chapterEdit', ['id' => $chapter->id]); ?>" class="btn btn-sm btn-secondary">Modifier</a>
               <form class="d-inline-block" method="post" action="<?= Urls::route('admin@chapterDelete', ['id' => $chapter->id]); ?>">
                   <input type="hidden" name="_method" value="DELETE">
                   <button class="btn btn-sm btn-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer le chapitre ?\nCette action est irréversible.')">Supprimer</button>

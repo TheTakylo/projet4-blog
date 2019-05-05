@@ -20,6 +20,7 @@ return [
         ['/admin/chapitres', 'admin@chapters', ['GET']],
         ['/admin/chapitre/nouveau', 'admin@chapterNew', ['GET', 'POST']],
         ['/admin/chapitre/:id', 'admin@chapterDelete', ['DELETE']],
+        ['/admin/chapitre/editer/:id', 'admin@chapterEdit', ['GET', 'PUT']],
 
         ['/admin/commentaires', 'admin@comments', ['GET']],
 
