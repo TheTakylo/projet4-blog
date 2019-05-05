@@ -49,9 +49,8 @@ class Route
     }
     
     /**
-    * match
     *
-    * @param  mixed $path
+    * @param string $path URL de la reqûete
     *
     * @return bool
     */

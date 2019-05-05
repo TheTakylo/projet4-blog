@@ -43,7 +43,7 @@ class Request
 
     public function isSecure(): bool
     {
-        return (int) $this->SERVER['SERVER_PORT'] === 443;
+        return (bool) $this->SERVER['SERVER_PORT'] === 443;
     }
 
     static function all()
