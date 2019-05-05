@@ -3,14 +3,15 @@
 namespace App\Controller;
 
 use App\Model\Chapters;
+use App\Model\Comments;
 use Framework\Http\Response;
 use Framework\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
-
+    
     protected $layout = 'admin_layout';
-
+    
     public function __construct()
     {
         // On vérifie si l'utilisateur esy connecté
@@ -19,45 +20,53 @@ class AdminController extends AbstractController
             return $this->redirectTo('security@login', [], 404);
         }
     }
-
+    
     public function index(): Response
     {
         return $this->render('admin/index.php');
     }
-
+    
     public function chapters(): Response
     {
         $chapters = (new Chapters())->all();
-
+        
         return $this->render('admin/chapters/list.php', ['chapters' => $chapters]);
     }
-
+    
     public function chapterDelete($id): Response
     {
         $chapters = (new Chapters());
-
+        
         $chapter = $chapters->findBy('id', $id);
-
+        
         if ($chapter) {
-            if ($chapters->delete($id)) {
-                $this->flash()->add('success', 'Chapitre supprimé');
+            $comments = (new Comments());
+            
+            if($comments->deleteAll($id)) {
+
+                $this->flash()->add('success', 'Les commentaires associés ont été supprimés');
+
+                if ($chapters->delete($id)) {
+                    $this->flash()->add('success', "Le chapitre <strong>{$chapter->title}</strong> supprimé");
+                }
+                
             } else {
                 $this->flash()->add('danger', 'Erreur');
             }
         }
-
+        
         return $this->redirectTo('admin@chapters');
     }
-
+    
     public function chapterNew(): Response
     {
         $request = $this->getRequest();
-
+        
         if ($request->getMethod() === 'POST') {
             $data = $request->getData();
-
+            
             $chapters = (new Chapters());
-
+            
             if ($chapters->insert($data['chapterName'], $data['chapterContent'])) {
                 $this->flash()->add('success', 'Chapitre ajouté');
                 return $this->redirectTo('admin@chapters');
@@ -94,8 +103,8 @@ class AdminController extends AbstractController
                 $this->flash()->add('danger', 'Erreur');
             }
         }
-
+        
         return $this->render('admin/chapters/form.php', ['edit' => true, 'chapter' => $chapter]);
     }
-
+    
 }

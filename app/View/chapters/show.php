@@ -42,6 +42,7 @@
                         <p><?= $comment->content ?></p>
                     </div>
                 </div>
+                <br>
             <?php endforeach; ?>
 
         <?php else: ?>

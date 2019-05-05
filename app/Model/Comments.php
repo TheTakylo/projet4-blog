@@ -12,9 +12,9 @@ class Comments extends Model
      * 
      * @var int $chapter
      */
-    public function getAll(int $chapter_id)
+    public function getAll($chapter_id)
     {
-        $query = $this->db->prepare('SELECT * FROM comments WHERE chapter_id = :id');
+        $query = $this->db->prepare("SELECT * FROM comments WHERE chapter_id = :id AND is_spam = 0 ORDER BY id DESC");
 
         $query->execute([
             ':id' => $chapter_id
@@ -33,6 +33,17 @@ class Comments extends Model
             ':content' => $content,
             ':created_at' => date('Y-m-d H:i:s'),
             ':chapter_id' => $chapter_id,
+        ]);
+    }
+
+    public function markSpam($comment_id) {}
+
+    public function deleteAll($chapter_id)
+    {
+        $query = $this->db->prepare("DELETE FROM comments WHERE chapter_id = :chapter_id");
+
+        return $query->execute([
+            'chapter_id' => $chapter_id
         ]);
     }
 

@@ -12,9 +12,9 @@ class CommentsController extends AbstractController
 
     public function add($chapter_id): Response
     {
-        $chapters = (new Chapters())->findBy('id', $chapter_id);
+        $chapter = (new Chapters())->findBy('id', $chapter_id);
 
-        if(!$chapters) {
+        if(!$chapter) {
             return $this->redirectTo('pages@index', [], 404);
         }
         
@@ -25,7 +25,7 @@ class CommentsController extends AbstractController
         $comments = (new Comments());
 
         if($comments->insert($data['commentEmail'], $data['commentPseudo'], $data['commentContent'], $chapter_id)) {
-            return $this->redirectTo('pages@index');
+            return $this->redirectTo('chapters@show', ['slug' => $chapter->slug]);
         } else {
             return $this->redirectTo('pages@index', [], 404);
         }
