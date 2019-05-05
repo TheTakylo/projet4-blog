@@ -23,6 +23,11 @@ class Route
     /**
      * @var array
      */
+    private $methods;
+
+    /**
+     * @var array
+     */
     private $params = [];
     
     /**
@@ -33,13 +38,13 @@ class Route
     *
     * @return void
     */
-    public function __construct(string $path, string $action)
+    public function __construct(string $path, string $action, array $methods = [])
     {
         $splitted = explode('@', $action);
         
         $this->controller = $splitted[0];
         $this->action = $splitted[1];
-        
+        $this->methods = $methods;
         $this->path = $path;
     }
     
@@ -109,5 +114,29 @@ class Route
     public function getParams(): array
     {
         return $this->params;
+    }
+
+    /**
+     * Set the value of methods
+     *
+     * @param  array  $methods
+     *
+     * @return  self
+     */ 
+    public function setMethods(array $methods)
+    {
+        $this->methods = $methods;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of methods
+     *
+     * @return  array
+     */ 
+    public function getMethods(): array
+    {
+        return $this->methods;
     }
 }

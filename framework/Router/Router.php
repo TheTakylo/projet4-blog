@@ -35,7 +35,7 @@ class Router
     private function setRoutes(array $routes)
     {
         foreach($routes as $route) {
-            array_push($this->routes, new Route($route[0], $route[1]));
+            array_push($this->routes, new Route($route[0], $route[1], $route[2] ?? [] ));
         }
     }
 
@@ -48,12 +48,13 @@ class Router
      */
     public function match(): ?Route
     {
+        $requestMethod = $this->request->getMethod();
+        
         foreach($this->routes as $route) {
-            if($route->match($this->request->getPath())) {
+            if(in_array($requestMethod, $route->getMethods()) && $route->match($this->request->getPath())) {
                 return $route;
             }
         }
-
         return null;
     }
 

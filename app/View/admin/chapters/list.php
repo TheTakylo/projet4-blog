@@ -1,6 +1,6 @@
 <?php $title = "Tous les chapitres"; ?>
-
-<div class="mt-5 d-block">
+<a href="<?= Urls::route('admin@chapterNew'); ?>" class="btn btn-primary">Écrire un chapitre</a>
+<div class="mt-3 d-block">
 <table class="table table-striped">
   <thead>
     <tr>

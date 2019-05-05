@@ -10,7 +10,6 @@ define('TEMPLATE', ROOT . DS . 'app' . DS . 'View' . DS);
 require '../vendor/autoload.php';
 
 use Framework\Http\Request;
-use Framework\Http\Response;
 use Framework\Router\Router;
 use Framework\Database\Database;
 use Framework\Configuration\Store;
