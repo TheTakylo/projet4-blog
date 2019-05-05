@@ -6,7 +6,7 @@
          <div class="card-header">Chapitres</div>
          <div class="card-body">
             <a href="<?= Urls::route('admin@chapters'); ?>" class="btn btn-primary">Voir tous les chapitres</a>
-            <a href="#" class="btn btn-secondary mt-3">Écrire un chapitre</a>
+            <a href="<?= Urls::route('admin@chapterNew'); ?>" class="btn btn-secondary mt-3">Écrire un chapitre</a>
          </div>
       </div>
    </div>

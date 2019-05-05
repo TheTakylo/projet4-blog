@@ -45,4 +45,19 @@ class AdminController extends AbstractController
         return $this->redirectTo('admin@chapters');
     }
 
+    public function chapterNew(): Response
+    {
+        $request = $this->getRequest();
+
+        if($request->getMethod() === 'POST') {
+            $data = $request->getData();
+
+            $chapters = (new Chapters());
+
+            $chapters->insert($data['chapterName'], $data['chapterContent']);
+        }
+
+        return $this->render('admin/chapters/form.php');
+    }
+
 }

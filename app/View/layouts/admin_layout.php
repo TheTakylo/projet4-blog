@@ -63,6 +63,7 @@
     </main>
   </div>
 </div>
-</body>
+
+  <?= $script_container ?? ''; ?>
 </body>
 </html>
