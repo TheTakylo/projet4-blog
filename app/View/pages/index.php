@@ -15,6 +15,7 @@
         <p class="blog-post-meta">Le <?= date("d M Y", strtotime($chapter->created_at)); ?> par <a href="#">Jean Fortroche</a></p>
         
         <p><?= Text::truncate(strip_tags($chapter->content)); ?></p>
+        <small><?= $chapter->comments_count; ?> commentaire<?= ((int) $chapter->comments_count >= 1) ? 's' : ''; ?></small>
         <a href="<?= Urls::route('chapters@show', ['slug' => $chapter->slug]) ?>" class="d-block mb-2">Voir le chapitre</a>
       </div>
     <?php endforeach; ?>

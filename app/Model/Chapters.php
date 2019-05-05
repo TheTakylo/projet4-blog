@@ -8,19 +8,45 @@ use Framework\Helpers\TextHelper;
 class Chapters extends Model
 {
 
+    private function findWithComments($limit = false, $chapter_id = false)
+    {
+        $values = [];
+
+        if($limit) {
+            $values[':limit'] = (int) $limit;
+        }
+
+        if($chapter_id) {
+            $values[':chapter_id'] = $chapter_id;
+        }
+        
+        $limit = ($limit) ? " LIMIT {$limit} " : "";
+        $where = ($chapter_id) ? " WHERE cp.id = :chapter_id " : "";
+
+        $query = "SELECT COUNT(c.id) as comments_count, cp.id, cp.title, cp.created_at, cp.slug, cp.content 
+                  FROM chapters cp RIGHT JOIN comments c ON c.chapter_id = cp.id {$where}
+                  ORDER BY cp.id DESC {$limit}";
+
+
+        $query  = $this->db->prepare($query);
+        $query->execute($values);
+
+        return $query->fetchAll();
+    }
+
     public function all()
     {
-        return $this->db->query('SELECT * FROM chapters ORDER BY id DESC')->fetchAll();
+        return $this->findWithComments();
     }
 
     public function selectForHome()
     {
-        return $this->db->query('SELECT * FROM chapters ORDER BY id DESC LIMIT 3')->fetchAll();
+        return $this->findWithComments(3);
     }
 
     public function findBy(string $row, $value)
     {
-        $query = $this->db->prepare("SELECT * FROM chapters WHERE {$row} = :parameter ");
+        $query = $this->db->prepare("SELECT * FROM chapters WHERE {$row} = :parameter  ");
         $query->execute([':parameter' => $value]);
 
         return $query->fetch();
