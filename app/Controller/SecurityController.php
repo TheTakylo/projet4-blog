@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
 
                 return $this->redirectTo('admin@index');
             } else {
-                $this->flash()->add('error', 'Identifiants incorrects');
+                $this->flash()->add('danger', 'Identifiants incorrects');
             }
         }
 

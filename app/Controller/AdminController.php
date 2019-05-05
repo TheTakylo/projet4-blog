@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Model\Chapters;
 use Framework\Http\Response;
 use Framework\Controller\AbstractController;
-use App\Model\Chapters;
 
 class AdminController extends AbstractController
 {
@@ -60,34 +60,36 @@ class AdminController extends AbstractController
 
             if ($chapters->insert($data['chapterName'], $data['chapterContent'])) {
                 $this->flash()->add('success', 'Chapitre ajouté');
+                return $this->redirectTo('admin@chapters');
             } else {
                 $this->flash()->add('danger', 'Erreur');
             }
         }
-
+        
         return $this->render('admin/chapters/form.php');
     }
-
+    
     public function chapterEdit($id): Response
     {
         $chapters = (new Chapters());
         $chapter = $chapters->findBy('id', $id);
-
+        
         if(!$chapter) {
             $this->flash()->add('danger', "Le chapitre n'existe pas");
-
+            
             return $this->redirectTo('admin@index');
         }
-
+        
         $request = $this->getRequest();
-
+        
         if ($request->getMethod() === 'PUT') {
             $data = $request->getData();
-
+            
             $chapters = (new Chapters());
-
+            
             if ($chapters->update($data['chapterName'], $data['chapterContent'], $id)) {
                 $this->flash()->add('success', 'Chapitre modifié');
+                return $this->redirectTo('admin@chapters');
             } else {
                 $this->flash()->add('danger', 'Erreur');
             }

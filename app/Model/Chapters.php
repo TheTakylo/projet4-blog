@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Framework\Database\Model;
+use Framework\Helpers\TextHelper;
 
 class Chapters extends Model
 {
@@ -40,7 +41,7 @@ class Chapters extends Model
             ':title' => $title,
             ':content' => $content,
             ':created_at' => date('Y-m-d H:i:s'),
-            ':slug' => 'dd'
+            ':slug' => TextHelper::slug($title)
         ]);
     }
 
@@ -52,7 +53,7 @@ class Chapters extends Model
             ':title' => $title,
             ':content' => $content,
             ':updated_at' => date('Y-m-d H:i:s'),
-            ':slug' => 'ddd',
+            ':slug' => TextHelper::slug($title),
             ':id' => $id
         ]);
     }
