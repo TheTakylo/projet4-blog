@@ -18,6 +18,8 @@ return [
     
         ['/admin', 'admin@index'],
         ['/admin/chapitres', 'admin@chapters'],
+        ['/admin/chapitre/:id', 'admin@chapterDelete'],
+
         ['/admin/commentaires', 'admin@comments'],
 
         ['/admin/login', 'security@login'],

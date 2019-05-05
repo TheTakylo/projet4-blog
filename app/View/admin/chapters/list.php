@@ -23,7 +23,7 @@
           </td>
           <td>
               <a href="#" class="btn btn-sm btn-secondary">Modifier</a>
-              <a href="#" class="btn btn-sm btn-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer le chapitre ?\nCette action est irréversible.')">Supprimer</a>
+              <a href="<?= Urls::route('admin@chapterDelete', ['id' => $chapter->id]); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer le chapitre ?\nCette action est irréversible.')">Supprimer</a>
             </td>
         </tr>
       <?php endforeach; ?>

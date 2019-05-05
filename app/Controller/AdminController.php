@@ -32,4 +32,17 @@ class AdminController extends AbstractController
         return $this->render('admin/chapters/list.php', ['chapters' => $chapters]);
     }
 
+    public function chapterDelete(int $id): Response
+    {
+        $chapters = (new Chapters());
+        
+        $chapter = $chapters->findBy('id', $id);
+
+        if($chapter) {
+            $chapters->delete($id);
+        }
+
+        return $this->redirectTo('admin@chapters');
+    }
+
 }

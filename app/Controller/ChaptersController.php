@@ -20,7 +20,7 @@ class ChaptersController extends AbstractController
 
     public function show(string $slug): Response
     {
-        $chapter = (new Chapters())->find($slug);
+        $chapter = (new Chapters())->findBy('slug', $slug);
 
         if(!$chapter) {
             // chapitre introuvable

@@ -17,12 +17,19 @@ class Chapters extends Model
         return $this->db->query('SELECT * FROM chapters ORDER BY id DESC LIMIT 3')->fetchAll();
     }
 
-    public function find(string $slug)
+    public function findBy($row, $value)
     {
-        $query = $this->db->prepare('SELECT * FROM chapters WHERE slug = :slug ');
-        $query->execute([':slug' => $slug]);
+        $query = $this->db->prepare("SELECT * FROM chapters WHERE {$row} = :parameter ");
+        $query->execute([':parameter' => $value]);
 
         return $query->fetch();
+    }
+
+    public function delete($id)
+    {
+        $query = $this->db->prepare("DELETE FROM chapters WHERE id = :id");
+
+        return $query->execute(['id' => $id]);
     }
 
 }
