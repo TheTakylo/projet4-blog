@@ -1,5 +1,6 @@
 <?php $title = "Tous les chapitres"; ?>
 
+<div class="mt-5 d-block">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -29,3 +30,4 @@
       <?php endforeach; ?>
   </tbody>
 </table>
+</div>
