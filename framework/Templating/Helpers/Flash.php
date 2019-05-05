@@ -14,4 +14,10 @@ class Flash
         return (new FlashManager())->get($type);
     }
 
+    static function all()
+    {
+        return (new FlashManager())->all();
+    }
+
+
 }
