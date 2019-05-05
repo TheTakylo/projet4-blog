@@ -14,12 +14,12 @@ class AdminController extends AbstractController
     public function __construct()
     {
         // On vérifie si l'utilisateur esy connecté
-        if(!$this->session()->has('admin')) {
+        if (!$this->session()->has('admin')) {
             // Si il ne l'est pas, on le rédirige vers la page de connexion
             return $this->redirectTo('security@login', 404);
         }
     }
-    
+
     public function index(): Response
     {
         return $this->render('admin/index.php');
@@ -35,11 +35,14 @@ class AdminController extends AbstractController
     public function chapterDelete(int $id): Response
     {
         $chapters = (new Chapters());
-        
+
         $chapter = $chapters->findBy('id', $id);
 
-        if($chapter) {
-            $chapters->delete($id);
+        if ($chapter) {
+            if ($chapters->delete($id)) {
+                $this->flash()->add('success', 'Chapitre supprimé');
+            }
+            $this->flash()->add('error', 'Erreur');
         }
 
         return $this->redirectTo('admin@chapters');
@@ -49,15 +52,18 @@ class AdminController extends AbstractController
     {
         $request = $this->getRequest();
 
-        if($request->getMethod() === 'POST') {
+        if ($request->getMethod() === 'POST') {
             $data = $request->getData();
 
             $chapters = (new Chapters());
 
-            $chapters->insert($data['chapterName'], $data['chapterContent']);
+            if ($chapters->insert($data['chapterName'], $data['chapterContent'])) {
+                $this->flash()->add('success', 'Chapitre ajouté');
+            } else {
+                $this->flash()->add('error', 'Erreur');
+            }
         }
 
         return $this->render('admin/chapters/form.php');
     }
-
 }
