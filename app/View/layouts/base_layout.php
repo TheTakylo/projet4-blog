@@ -9,8 +9,16 @@
     <link rel="stylesheet" href="<?= Assets::css('bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= Assets::css('bootstrap.blog.css') ?>">
     <link rel="stylesheet" href="<?= Assets::css('style.css') ?>">
+    
+    <?php if(Session::has('admin')): ?>
+      <link rel="stylesheet" href="<?= Assets::css('admin/bootstrap.admin.css'); ?>">
+    <?php endif; ?>
 </head>
 <body>
+  <?php if(Session::has('admin')): ?>
+    <?php Partials::load('admin/partials/navigation.php'); ?>
+  <?php endif; ?>
+
 <div class="container">
   <?= Partials::load('partials/navigation.php'); ?>
 </div>
