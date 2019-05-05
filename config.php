@@ -15,6 +15,8 @@ return [
     
         ['/chapitres', 'chapters@index', ['GET']],
         ['/chapitre/:slug', 'chapters@show', ['GET']],
+
+        ['/chapitre/:chapter_id/comment', 'comments@add', ['POST']],
     
         ['/admin', 'admin@index', ['GET']],
         ['/admin/chapitres', 'admin@chapters', ['GET']],

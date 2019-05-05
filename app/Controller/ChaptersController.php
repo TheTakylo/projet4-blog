@@ -1,9 +1,10 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Chapters;
+use App\Model\Comments;
 use Framework\Http\Response;
 use Framework\Controller\AbstractController;
-use App\Model\Chapters;
 
 class ChaptersController extends AbstractController
 {
@@ -27,7 +28,9 @@ class ChaptersController extends AbstractController
             die();
         }
 
-        return $this->render('chapters/show.php', ['chapter' => $chapter]);
+        $comments = (new Comments())->getAll($chapter->id);
+
+        return $this->render('chapters/show.php', ['chapter' => $chapter, 'comments' => $comments]);
     }
 
 }
