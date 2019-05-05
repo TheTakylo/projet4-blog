@@ -24,7 +24,10 @@
           </td>
           <td>
               <a href="#" class="btn btn-sm btn-secondary">Modifier</a>
-              <a href="<?= Urls::route('admin@chapterDelete', ['id' => $chapter->id]); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer le chapitre ?\nCette action est irréversible.')">Supprimer</a>
+              <form class="d-inline-block" method="post" action="<?= Urls::route('admin@chapterDelete', ['id' => $chapter->id]); ?>">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button class="btn btn-sm btn-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer le chapitre ?\nCette action est irréversible.')">Supprimer</button>
+              </form>
             </td>
         </tr>
       <?php endforeach; ?>

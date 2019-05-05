@@ -9,6 +9,8 @@ class Request
     private $POST;
     private $SERVER;
 
+    const ALLOWED_METHOD = ['POST', 'GET', 'PUT', 'DELETE'];
+
     public function __construct()
     {
         $this->GET = $_GET;
@@ -27,6 +29,13 @@ class Request
             throw new \Exception('No request method found');
         }
 
+        if($this->hasData()) {
+           $data = $this->getData();
+            if(isset($data['_method']) && in_array($data['_method'], Request::ALLOWED_METHOD)) {
+                return $data['_method'];
+            }
+        }
+
         return $this->SERVER['REQUEST_METHOD'];
     }
 
@@ -35,6 +44,10 @@ class Request
         return $this->POST;
     }
 
+    public function hasData(): bool
+    {
+        return isset($this->POST);
+    }
 
     public function getServer()
     {

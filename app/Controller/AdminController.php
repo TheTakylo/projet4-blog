@@ -41,8 +41,9 @@ class AdminController extends AbstractController
         if ($chapter) {
             if ($chapters->delete($id)) {
                 $this->flash()->add('success', 'Chapitre supprimé');
+            } else {
+                $this->flash()->add('error', 'Erreur');
             }
-            $this->flash()->add('error', 'Erreur');
         }
 
         return $this->redirectTo('admin@chapters');
