@@ -23,8 +23,8 @@ class Chapters extends Model
         $limit = ($limit) ? " LIMIT {$limit} " : "";
         $where = ($chapter_id) ? " WHERE cp.id = :chapter_id " : "";
 
-        $query = "SELECT COUNT(c.id) as comments_count, cp.id, cp.title, cp.created_at, cp.slug, cp.content 
-                  FROM chapters cp RIGHT JOIN comments c ON c.chapter_id = cp.id {$where}
+        $query = "SELECT COUNT(c.id) as comments_count, cp.updated_at, cp.id, cp.title, cp.created_at, cp.slug, cp.content 
+                  FROM chapters cp RIGHT JOIN comments c ON c.chapter_id = cp.id WHERE c.is_spam = 0 {$where}
                   ORDER BY cp.id DESC {$limit}";
 
 
