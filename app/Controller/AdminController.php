@@ -16,7 +16,7 @@ class AdminController extends AbstractController
         // On vérifie si l'utilisateur esy connecté
         if (!$this->session()->has('admin')) {
             // Si il ne l'est pas, on le rédirige vers la page de connexion
-            return $this->redirectTo('security@login', 404);
+            return $this->redirectTo('security@login', [], 404);
         }
     }
 

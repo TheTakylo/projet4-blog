@@ -15,7 +15,7 @@ class CommentsController extends AbstractController
         $chapters = (new Chapters())->findBy('id', $chapter_id);
 
         if(!$chapters) {
-            return $this->redirectTo('pages@index', 404);
+            return $this->redirectTo('pages@index', [], 404);
         }
         
         $request = $this->getRequest();
@@ -27,7 +27,7 @@ class CommentsController extends AbstractController
         if($comments->insert($data['commentEmail'], $data['commentPseudo'], $data['commentContent'], $chapter_id)) {
             return $this->redirectTo('pages@index');
         } else {
-            return $this->redirectTo('pages@index', 404);
+            return $this->redirectTo('pages@index', [], 404);
         }
     }
 
