@@ -30,7 +30,7 @@ class FlashManager
 
     public function all(): ?array
     {
-        $flashes =  $_SESSION["FLASH"];
+        $flashes =  $_SESSION["FLASH"] ?? [];
 
         $_SESSION["FLASH"] = [];
 
