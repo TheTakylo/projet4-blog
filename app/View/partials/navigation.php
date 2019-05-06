@@ -4,7 +4,7 @@
       </div>
       <div class="col-6 text-center">
         <a class="blog-header-logo text-dark" href="#">Billet simple pour l'Alaska </a>
-        <div class="mt-2"><small class="font-italic">Par <strong>Jean Fortroche</strong></small></div>
+        <div class="mt-2"><small class="font-italic">Par <strong>Jean Forteroche</strong></small></div>
       </div>
       <div class="col-3 d-flex justify-content-end align-items-center">
         <a class="text-muted" href="#">

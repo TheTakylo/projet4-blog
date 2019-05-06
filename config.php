@@ -25,13 +25,14 @@ return [
         ['/admin/chapitre/editer/:id', 'admin@chapterEdit', ['GET', 'PUT']],
 
         ['/admin/commentaires', 'admin@comments', ['GET']],
+        ['/admin/commentaires/spam', 'admin@commentsSpam', ['GET']],
 
         ['/admin/login', 'security@login', ['GET', 'POST']],
         ['/admin/logout', 'security@logout', ['GET']]
     ],
 
     'Admin' => [
-        'username' => 'jfortroche',
-        'password' => 'jfortroche' 
+        'username' => 'jforteroche',
+        'password' => 'jforteroche' 
     ]
 ];

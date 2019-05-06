@@ -12,7 +12,7 @@
     <?php foreach($chapters as $chapter): ?>
       <div class="blog-post border-bottom">
         <h2 class="blog-post-title"><?= $chapter->title; ?></h2>
-        <p class="blog-post-meta">Le <?= date("d M Y", strtotime($chapter->created_at)); ?> par <a href="#">Jean Fortroche</a></p>
+        <p class="blog-post-meta">Le <?= date("d M Y", strtotime($chapter->created_at)); ?> par <a href="#">Jean Forteroche</a></p>
         
         <p><?= Text::truncate(strip_tags($chapter->content)); ?></p>
         <small><?= $chapter->comments_count; ?> commentaire<?= ((int) $chapter->comments_count >= 1) ? 's' : ''; ?></small>
