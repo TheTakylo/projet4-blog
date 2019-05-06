@@ -34,7 +34,7 @@
     <div class="col-md-7 col-xs-12">
         <?php if(count($comments) >= 1): ?>
 
-           <h4 class="mb-4 d-block"><?= count($comments); ?> commentaire<?= ((int) count($comments) >= 1) ? 's' : ''; ?></h4>
+           <h4 class="mb-4 d-block"><?= count($comments); ?> commentaire<?= ((int) count($comments) > 1) ? 's' : ''; ?></h4>
 
             <?php foreach($comments as $comment): ?>
                 <div class="media">
