@@ -23,14 +23,15 @@ class Chapters extends Model
         $limit = ($limit) ? " LIMIT {$limit} " : "";
         $where = ($chapter_id) ? " WHERE cp.id = :chapter_id " : "";
 
-        $query = "SELECT a.*, 
-        COUNT(b.id) as comments_count 
-        FROM chapters AS a 
-        LEFT JOIN comments
-        AS b {$where} ON a.id = b.chapter_id
-        {$limit} 
-        ";
 
+        $query = "SELECT chapters.*, comments.*, COUNT(distinct comments.id) as comments_count 
+        FROM chapters 
+        LEFT JOIN comments ON comments.chapter_id = chapters.id AND comments.is_spam = 0
+          {$where}
+        GROUP BY chapters.id 
+        ORDER BY chapters.id DESC 
+         {$limit} 
+        ";
 
         $query  = $this->db->prepare($query);
         $query->execute($values);
