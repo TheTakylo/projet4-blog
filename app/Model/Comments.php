@@ -31,9 +31,17 @@ class Comments extends Model
         return $query->fetchAll();
     }
 
-    public function insert($email, $pseudo, $content, $chapter_id)
+    public function findBy(string $row, $value)
     {
-        $query = $this->db->prepare("INSERT INTO comments (email, pseudo, content, created_at, chapter_id) VALUES (:email, :pseudo, :content, :created_at, :chapter_id) ");
+        $query = $this->db->prepare("SELECT * FROM comments WHERE {$row} = :parameter  ");
+        $query->execute([':parameter' => $value]);
+
+        return $query->fetch();
+    }
+
+    public function insert($email, $pseudo, $content, $chapter_id, $is_admin = 0)
+    {
+        $query = $this->db->prepare("INSERT INTO comments (email, pseudo, content, created_at, chapter_id, is_admin) VALUES (:email, :pseudo, :content, :created_at, :chapter_id, :is_admin) ");
 
         return $query->execute([
             ':email' => md5($email),
@@ -41,10 +49,16 @@ class Comments extends Model
             ':content' => $content,
             ':created_at' => date('Y-m-d H:i:s'),
             ':chapter_id' => $chapter_id,
+            ':is_admin' => $is_admin
         ]);
     }
 
-    public function markSpam($comment_id) {}
+    public function markSpam($comment_id) 
+    {
+        $query = $this->db->prepare("UPDATE comments SET is_spam = 1 WHERE id = :comment_id AND is_admin = 0");
+
+        return $query->execute(['comment_id' => $comment_id]);
+    }
 
     public function deleteAll($chapter_id)
     {

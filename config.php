@@ -24,6 +24,7 @@ return [
         ['/admin/chapitre/:id', 'admin@chapterDelete', ['DELETE']],
         ['/admin/chapitre/editer/:id', 'admin@chapterEdit', ['GET', 'PUT']],
 
+        ['/comments/spam/:comment_id', 'comments@spam', ['GET']],
         ['/admin/commentaires', 'admin@comments', ['GET']],
         ['/admin/commentaires/spam', 'admin@commentsSpam', ['GET']],
         ['/admin/commentaires/:id', 'admin@commentDelete', ['DELETE']],

@@ -7,11 +7,11 @@ class FlashManager
     
     public function add(string $type, string $message)
     {
-        if(!$this->has("FLASH")) {
-            $_SESSION["FLASH"] = [];
+        if(!$this->has($type)) {
+            $_SESSION["FLASH"][$type] = [];
         }
         
-        array_push($_SESSION["FLASH"], ['type' => $type, 'message' => $message]);
+        array_push($_SESSION["FLASH"][$type], $message);
     }
     
     public function has(string $type): bool
@@ -21,7 +21,7 @@ class FlashManager
     
     public function get(string $type): array
     {
-        $flashes =  $_SESSION["FLASH"][$type];
+        $flashes =  $_SESSION["FLASH"][$type] ?? [];
 
         $_SESSION["FLASH"][$type] = [];
 

@@ -1,6 +1,7 @@
 <?php
 
 use Framework\Helpers\UrlsHelper;
+use Framework\Configuration\Store;
 
 class Urls
 {
@@ -10,5 +11,13 @@ class Urls
         return UrlsHelper::route($routeName, $parameters);
     }
 
+    static function match($routeName): bool
+    {
+        if(!$route = Store::getInstance()->getRouter()->match()->getFullName() === $routeName) {
+            return false;
+        }
+        
+        return true;
+    }
 
 }

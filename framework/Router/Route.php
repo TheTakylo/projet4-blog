@@ -29,6 +29,8 @@ class Route
      * @var array
      */
     private $params = [];
+
+    private $fullName;
     
     /**
     * __construct
@@ -42,6 +44,7 @@ class Route
     {
         $splitted = explode('@', $action);
         
+        $this->fullName = $action;
         $this->controller = $splitted[0];
         $this->action = $splitted[1];
         $this->methods = $methods;
@@ -137,5 +140,13 @@ class Route
     public function getMethods(): array
     {
         return $this->methods;
+    }
+
+    /**
+     * Get the value of fullName
+     */ 
+    public function getFullName()
+    {
+        return $this->fullName;
     }
 }

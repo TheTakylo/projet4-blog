@@ -12,11 +12,9 @@
         
     <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
     
-        <?php if(Flash::has('error')): ?>
-            <?php foreach(Flash::get('error') as $error): ?>
-                <div class="alert alert-danger"><?= $error ?></div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+        <?php foreach(Flash::get('danger') as $error): ?>
+            <div class="alert alert-danger"><?= $error ?></div>
+        <?php endforeach; ?>
 
         <label for="inputUsername" class="sr-only">Identifiant</label>
         <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Identifiant" required autofocus>

@@ -23,5 +23,4 @@ class UrlsHelper
         return trim(SITE_URL . $path, '/');
     }
 
-
 }
