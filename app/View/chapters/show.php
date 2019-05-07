@@ -1,7 +1,7 @@
 <?php $title = $chapter->title; ?>
-<div class="row mt-2 mb-3">
+<div class="row mb-3">
     <div class="col-md-10 offset-md-1">
-        <div class="blog-post border-bottom">
+        <div class="blog-post border-bottom pb-4">
             <h2 class="blog-post-title"><?= $chapter->title; ?></h2>
             <p class="blog-post-meta">Le <?= date("d M Y", strtotime($chapter->created_at)); ?> par <a href="#">Jean Forteroche</a></p>
             

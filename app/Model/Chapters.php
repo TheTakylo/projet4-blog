@@ -24,9 +24,9 @@ class Chapters extends Model
         $where = ($chapter_id) ? " WHERE cp.id = :chapter_id " : "";
 
 
-        $query = "SELECT chapters.*, comments.*, COUNT(distinct comments.id) as comments_count 
+        $query = "SELECT chapters.*, COUNT(distinct comments.id) as comments_count 
         FROM chapters 
-        LEFT JOIN comments ON comments.chapter_id = chapters.id AND comments.is_spam = 0
+        LEFT JOIN comments ON comments.chapter_id = chapters.id
           {$where}
         GROUP BY chapters.id 
         ORDER BY chapters.id DESC 

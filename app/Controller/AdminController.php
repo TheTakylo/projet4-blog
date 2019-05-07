@@ -23,7 +23,9 @@ class AdminController extends AbstractController
     
     public function index(): Response
     {
-        return $this->render('admin/index.php');
+        $hasSpam = (new Comments())->hasSpam();
+
+        return $this->render('admin/index.php', ['hasSpam' => (int) $hasSpam->total]);
     }
     
     public function chapters(): Response
@@ -107,4 +109,31 @@ class AdminController extends AbstractController
         return $this->render('admin/chapters/form.php', ['edit' => true, 'chapter' => $chapter]);
     }
     
+    public function commentsSpam(): Response
+    {
+        $comments = (new Comments())->getSpammed();
+
+        return $this->render('admin/comments/list.php', ['comments' => $comments]);
+    }
+
+    public function commentDelete($id): Response
+    {
+        $comments = (new Comments());
+
+        if($comments->delete($id)) {
+            $this->flash()->add('success', 'Le commentaire à bien été supprimé');
+        } else {
+            $this->flash()->add('danger', 'Erreur, le commentaire n\'a pas été supprimé');
+        }
+
+        return $this->redirectTo('admin@commentsSpam');
+    }
+
+    public function comments(): Response
+    {
+        $comments = (new Comments())->all();
+        
+        return $this->render('admin/comments/list.php', ['comments' => $comments]);
+    }
+
 }

@@ -7,13 +7,14 @@
       <th scope="col">Titre</th>
       <th scope="col">Date d'ajout</th>
       <th scope="col">Dernière modifications</th>
+      <th scope="col">Commentaires</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
       <?php foreach($chapters as $chapter): ?>
       <tr>
-          <td><?= $chapter->title ?></td>
+          <td><a href="<?= Urls::route('chapters@show', ['slug' => $chapter->slug]); ?>"><?= $chapter->title ?></a></td>
           <td><?= date('d/m/Y à H:i:s', strtotime($chapter->created_at)); ?></td>
           <td>
               <?php if($chapter->updated_at === null): ?>
@@ -22,6 +23,7 @@
                Modifié le <?= date('d/m/Y à H:i:s', strtotime($chapter->updated_at)); ?>
               <?php endif; ?>
           </td>
+          <td><?= $chapter->comments_count ?></td>
           <td>
               <a href="<?= Urls::route('admin@chapterEdit', ['id' => $chapter->id]); ?>" class="btn btn-sm btn-secondary">Modifier</a>
               <form class="d-inline-block" method="post" action="<?= Urls::route('admin@chapterDelete', ['id' => $chapter->id]); ?>">
