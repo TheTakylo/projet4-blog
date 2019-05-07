@@ -38,14 +38,19 @@ abstract class AbstractController
         return $response;
     }
 
-    public function redirect($path, $statusCode = 200)
+    public function redirect($path, $statusCode = 200): RedirectResponse
     {
         return (new RedirectResponse($path, $statusCode));
     }
 
-    public function redirectTo($routeName, $routeParameters = [], $statusCode = 200)
+    public function redirectTo($routeName, $routeParameters = [], $statusCode = 200): RedirectResponse
     {
         return $this->redirect(UrlsHelper::route($routeName, $routeParameters), $statusCode);
+    }
+
+    public function referer(): RedirectResponse
+    {
+        return $this->redirect($this->request->getReferer());
     }
 
     public function getDatabase()

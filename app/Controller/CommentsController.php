@@ -15,7 +15,7 @@ class CommentsController extends AbstractController
         $chapter = (new Chapters())->findBy('id', $chapter_id);
         
         if(!$chapter) {
-            return $this->redirectTo('pages@index', [], 404);
+            return $this->referer();
         }
         
         $is_admin = 0;
@@ -27,13 +27,9 @@ class CommentsController extends AbstractController
             $is_admin = 1;
         }
         
-        $comments = (new Comments());
+        (new Comments())->insert($data, $chapter_id, $is_admin);
 
-        if($comments->insert($data, $chapter_id, $is_admin)) {
-            return $this->redirectTo('chapters@show', ['slug' => $chapter->slug]);
-        } else {
-            return $this->redirectTo('pages@index', [], 404);
-        }
+        return $this->redirectTo('chapters@show', ['slug' => $chapter->slug]);
     }
     
     public function spam($comment_id)
@@ -41,12 +37,12 @@ class CommentsController extends AbstractController
         $comments = (new Comments());
         
         if(!$comments->findBy('id', $comment_id)) {
-            return $this->redirectTo('pages@index', [], 404);
+            return $this->referer();
         }
         
         $comments->markSpam($comment_id);
         
-        return $this->redirectTo('pages@index');
+        return $this->referer();
     }
     
 }

@@ -30,7 +30,7 @@ class SecurityController extends AbstractController
     {
         $this->session()->clear();
 
-        return $this->redirectTo('pages@index');
+        return $this->referer();
     }
 
 }

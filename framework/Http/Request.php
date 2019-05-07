@@ -42,6 +42,11 @@ class Request
         return $this->server->get('REQUEST_METHOD');
     }
 
+    public function getReferer()
+    {
+       return $this->server->get('HTTP_REFERER');
+    }
+
     static function all()
     {
         return new static();

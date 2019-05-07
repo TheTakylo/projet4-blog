@@ -47,7 +47,6 @@ class AdminController extends AbstractController
             $comments = (new Comments());
             
             if($comments->deleteAll($id)) {
-
                 $this->flash()->add('success', 'Les commentaires associés ont été supprimés');
 
                 if ($chapters->delete($id)) {
@@ -71,6 +70,7 @@ class AdminController extends AbstractController
             
             if ($chapters->insert($data['chapterName'], $data['chapterContent'])) {
                 $this->flash()->add('success', 'Chapitre ajouté');
+
                 return $this->redirectTo('admin@chapters');
             } else {
                 $this->flash()->add('danger', 'Erreur');
@@ -97,6 +97,7 @@ class AdminController extends AbstractController
             $chapters = (new Chapters());
             if ($chapters->update($data['chapterName'], $data['chapterContent'], $id)) {
                 $this->flash()->add('success', 'Chapitre modifié');
+
                 return $this->redirectTo('admin@chapters');
             } else {
                 $this->flash()->add('danger', 'Erreur');
@@ -123,7 +124,7 @@ class AdminController extends AbstractController
             $this->flash()->add('danger', 'Erreur, le commentaire n\'a pas été supprimé');
         }
 
-        return $this->redirectTo('admin@commentsSpam');
+        return $this->referer();
     }
 
     public function comments(): Response
