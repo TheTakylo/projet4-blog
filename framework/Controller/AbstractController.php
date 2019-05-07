@@ -19,6 +19,14 @@ abstract class AbstractController
      */
     protected $layout = null;
 
+    /** @var Request */
+    protected $request;
+
+    public function __construct()
+    {
+        $this->request = Store::getInstance()->get('Request');
+    }
+
     public function render($view, $params = [], int $statusCode = 200): Response
     {
         $view = new View($view, $this->layout, $params);

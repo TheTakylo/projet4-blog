@@ -39,14 +39,14 @@ class Comments extends Model
         return $query->fetch();
     }
 
-    public function insert($email, $pseudo, $content, $chapter_id, $is_admin = 0)
+    public function insert($data, $chapter_id, $is_admin = 0)
     {
         $query = $this->db->prepare("INSERT INTO comments (email, pseudo, content, created_at, chapter_id, is_admin) VALUES (:email, :pseudo, :content, :created_at, :chapter_id, :is_admin) ");
 
         return $query->execute([
-            ':email' => md5($email),
-            ':pseudo' => $pseudo,
-            ':content' => $content,
+            ':email' => md5($data['commentEmail']),
+            ':pseudo' => $data['commentPseudo'],
+            ':content' => $data['commentContent'],
             ':created_at' => date('Y-m-d H:i:s'),
             ':chapter_id' => $chapter_id,
             ':is_admin' => $is_admin

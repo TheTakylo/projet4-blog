@@ -14,6 +14,8 @@ class AdminController extends AbstractController
     
     public function __construct()
     {
+        parent::__construct();
+
         // On vérifie si l'utilisateur esy connecté
         if (!$this->session()->has('admin')) {
             // Si il ne l'est pas, on le rédirige vers la page de connexion
@@ -49,7 +51,7 @@ class AdminController extends AbstractController
                 $this->flash()->add('success', 'Les commentaires associés ont été supprimés');
 
                 if ($chapters->delete($id)) {
-                    $this->flash()->add('success', "Le chapitre <strong>{$chapter->title}</strong> supprimé");
+                    $this->flash()->add('success', "Le chapitre <strong>{$chapter->title}</strong> a bien été Ssupprimé");
                 }
                 
             } else {
@@ -62,10 +64,8 @@ class AdminController extends AbstractController
     
     public function chapterNew(): Response
     {
-        $request = $this->getRequest();
-        
-        if ($request->getMethod() === 'POST') {
-            $data = $request->getData();
+        if ($this->request->getMethod() === 'POST') {
+            $data = $this->request->post->all();
             
             $chapters = (new Chapters());
             
@@ -91,13 +91,10 @@ class AdminController extends AbstractController
             return $this->redirectTo('admin@index');
         }
         
-        $request = $this->getRequest();
-        
-        if ($request->getMethod() === 'PUT') {
-            $data = $request->getData();
+        if ($this->request->getMethod() === 'PUT') {
+            $data = $this->request->post->all();
             
             $chapters = (new Chapters());
-            
             if ($chapters->update($data['chapterName'], $data['chapterContent'], $id)) {
                 $this->flash()->add('success', 'Chapitre modifié');
                 return $this->redirectTo('admin@chapters');

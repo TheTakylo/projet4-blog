@@ -18,4 +18,15 @@ class PostRequest extends AbstractDataRequest
 
         return trim(htmlspecialchars(strip_tags(parent::get($item))));
     }
+
+    public function data()
+    {
+        $output = [];
+
+        foreach($this->all() as $item => $v) {
+            $output[$item] = $this->get($item);
+        }
+
+        return $output;
+    }
 }

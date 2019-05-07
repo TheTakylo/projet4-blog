@@ -30,4 +30,9 @@ class AbstractDataRequest
         return isset($this->property[$item]);
     }
 
+    public function all()
+    {
+        return $this->property;
+    }
+
 }

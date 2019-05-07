@@ -33,7 +33,7 @@ class Request
             throw new \Exception('No request method found');
         }
 
-        if($method = $this->post->has('_method')) {
+        if($method = $this->post->get('_method')) {
             if(in_array($method, Request::ALLOWED_METHOD)) {
                 return $method;
             }
