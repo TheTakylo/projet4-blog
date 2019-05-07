@@ -16,8 +16,8 @@
             <div class="alert alert-danger"><?= $error ?></div>
         <?php endforeach; ?>
 
-        <label for="inputUsername" class="sr-only">Identifiant</label>
-        <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Identifiant" required autofocus>
+        <label for="inputEmail" class="sr-only">Adresse email</label>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Adresse email" required autofocus>
         <label for="inputPassword" class="sr-only">Mot de passe</label>
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>

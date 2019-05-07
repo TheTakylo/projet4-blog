@@ -35,7 +35,7 @@ return [
     ],
 
     'Admin' => [
-        'username' => 'jforteroche',
-        'password' => 'jforteroche' 
+        'email' => 'admin@jean-forteroche.fr',
+        'password' => 'admin' 
     ]
 ];

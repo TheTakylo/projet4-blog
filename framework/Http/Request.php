@@ -2,61 +2,44 @@
 
 namespace Framework\Http;
 
+use Framework\Http\DataRequest\GetRequest;
+use Framework\Http\DataRequest\PostRequest;
+use Framework\Http\DataRequest\ServerRequest;
+
 class Request
 {   
 
-    private $GET;
-    private $POST;
-    private $SERVER;
+    public $get;
+    public $post;
+    public $server;
 
     const ALLOWED_METHOD = ['POST', 'GET', 'PUT', 'DELETE'];
 
     public function __construct()
     {
-        $this->GET = $_GET;
-        $this->POST = $_POST;
-        $this->SERVER = $_SERVER;
+        $this->get = new GetRequest($_GET);
+        $this->post = new PostRequest($_POST);
+        $this->server = new ServerRequest($_SERVER);
     }
 
     public function getPath()
     {
-        return '/' . ($this->GET['url'] ?? '');
+        return '/' . ($this->get->get('url') ?? '');
     }
 
     public function getMethod()
     {
-        if(!isset($this->SERVER['REQUEST_METHOD'])) {
+        if(!$this->server->has('REQUEST_METHOD')) {
             throw new \Exception('No request method found');
         }
 
-        if($this->hasData()) {
-           $data = $this->getData();
-            if(isset($data['_method']) && in_array($data['_method'], Request::ALLOWED_METHOD)) {
-                return $data['_method'];
+        if($method = $this->post->has('_method')) {
+            if(in_array($method, Request::ALLOWED_METHOD)) {
+                return $method;
             }
         }
 
-        return $this->SERVER['REQUEST_METHOD'];
-    }
-
-    public function getData(): array
-    {
-        return $this->POST;
-    }
-
-    public function hasData(): bool
-    {
-        return isset($this->POST);
-    }
-
-    public function getServer()
-    {
-        return $this->SERVER;
-    }
-
-    public function isSecure(): bool
-    {
-        return (bool) $this->SERVER['SERVER_PORT'] === 443;
+        return $this->server->get('REQUEST_METHOD');
     }
 
     static function all()

@@ -16,7 +16,7 @@ class SecurityController extends AbstractController
             $admin = $this->config('Admin');
             $form = $request->getData();
 
-            if($form['username'] === $admin['username'] && $form['password'] === $admin['password']) {
+            if($form['email'] === $admin['email'] && $form['password'] === $admin['password']) {
                 $this->session()->set('admin', true);
 
                 return $this->redirectTo('admin@index');

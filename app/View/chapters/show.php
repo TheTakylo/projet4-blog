@@ -12,16 +12,20 @@
 <div class="row">
    <div class="col-md-5 col-xs-12">
       <form method="POST" action="<?= Urls::route('comments@add', ['chapter_id' => $chapter->id]); ?>">
-         <div class="form-row">
-            <div class="col">
-               <label for="commentEmail">Adresse email</label>
-               <input type="email" id="commentEmail" name="commentEmail" class="form-control" placeholder="Adresse email">
+         <?php if(!Session::has('admin')): ?>
+            <div class="form-row">
+               <div class="col">
+                  <label for="commentEmail">Adresse email</label>
+                  <input type="email" id="commentEmail" name="commentEmail" class="form-control" placeholder="Adresse email">
+               </div>
+               <div class="col">
+                  <label for="commentPseudo">Pseudonyme</label>
+                  <input type="text" id="commentPseudo" name="commentPseudo" class="form-control" placeholder="Pseudonyme">
+               </div>
             </div>
-            <div class="col">
-               <label for="commentPseudo">Pseudonyme</label>
-               <input <?= Session::has('admin') ? "readonly value='Jean Forteroche'" : ''; ?> type="text" id="commentPseudo" name="commentPseudo" class="form-control" placeholder="Pseudonyme">
-            </div>
-         </div>
+         <?php else: ?>
+         <h4><strong>Jean Forteroche</strong></h4>
+         <?php endif; ?>
          <div class="form-row mt-4">
             <label for="commentContent">Commentaire</label>
             <textarea name="commentContent" id="commentContent" class="form-control" placeholder="Commentaire"></textarea>

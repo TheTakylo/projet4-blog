@@ -73,11 +73,9 @@ class Router
 
     public function getRoot(): string
     {
-        $server = $this->request->getServer();
-
-        $path = 'http' . ($this->request->isSecure() ? 's' : '');
-        $path .= '://' . $server['SERVER_NAME'];
-        $path .= str_replace('index.php', '', $server['SCRIPT_NAME']);
+        $path = 'http' . ($this->request->server->isSecure() ? 's' : '');
+        $path .= '://' . $this->request->server->get('SERVER_NAME');
+        $path .= str_replace('index.php', '', $this->request->server->get('SCRIPT_NAME'));
 
         return trim($path, '/');
     }
