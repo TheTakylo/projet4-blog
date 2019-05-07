@@ -1,6 +1,8 @@
 <?php $title = "Liste des commentaires"; ?>
 
 <div class="mt-5 d-block">
+  <?php if($comments): ?>
+  <?php foreach($comments as $comment): ?>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -13,21 +15,23 @@
     </tr>
   </thead>
   <tbody>
-      <?php foreach($comments as $comment): ?>
-      <tr>
-          <td><?= $comment->pseudo ?></td>
-          <td><?= $comment->content ?></td>
-          <td><?= date('d/m/Y à H:i:s', strtotime($comment->created_at)); ?></td>
-          <td><?= ($comment->is_spam == 0) ? "<div class='badge badge-primary'>normal</div>" : "<div class='badge badge-danger'>spam</div>" ?></td>
-          <td><a href="<?= Urls::route('chapters@show', ['slug' => $comment->chapter_slug]); ?>"><?= $comment->chapter_title ?></a></td>
-          <td>
-              <form class="d-inline-block" method="post" action="<?= Urls::route('admin@commentDelete', ['id' => $comment->id]); ?>">
-                  <input type="hidden" name="_method" value="DELETE">
-                  <button class="btn btn-sm btn-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer le commentaire ?\nCette action est irréversible.')">Supprimer</button>
-              </form>
-            </td>
-        </tr>
+    <tr>
+      <td><?= $comment->pseudo ?></td>
+      <td><?= $comment->content ?></td>
+      <td><?= date('d/m/Y à H:i:s', strtotime($comment->created_at)); ?></td>
+      <td><?= ($comment->is_spam == 0) ? "<div class='badge badge-primary'>normal</div>" : "<div class='badge badge-danger'>spam</div>" ?></td>
+      <td><a href="<?= Urls::route('chapters@show', ['slug' => $comment->chapter_slug]); ?>"><?= $comment->chapter_title ?></a></td>
+      <td>
+        <form class="d-inline-block" method="post" action="<?= Urls::route('admin@commentDelete', ['id' => $comment->id]); ?>">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer le commentaire ?\nCette action est irréversible.')">Supprimer</button>
+          </form>
+        </td>
+      </tr>
       <?php endforeach; ?>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  <?php else: ?>
+  <div class="alert alert-primary">Aucun <?= (isset($spamPage)) ? 'commentaire n\'a été signalé' : 'commentaire' ?></div>
+<?php endif; ?>
 </div>

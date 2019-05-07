@@ -110,7 +110,7 @@ class AdminController extends AbstractController
     {
         $comments = (new Comments())->getSpammed();
 
-        return $this->render('admin/comments/list.php', ['comments' => $comments]);
+        return $this->render('admin/comments/list.php', ['comments' => $comments, 'spamPage' => true]);
     }
 
     public function commentDelete($id): Response
