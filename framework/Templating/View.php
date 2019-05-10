@@ -2,7 +2,6 @@
 
 namespace Framework\Templating;
 
-use Framework\Templating\Helpers\AssetsHelper;
 use Framework\Templating\Exception\TemplateNotFoundException;
 
 class View

@@ -2,7 +2,6 @@
 
 <div class="mt-5 d-block">
   <?php if($comments): ?>
-  <?php foreach($comments as $comment): ?>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -15,6 +14,7 @@
     </tr>
   </thead>
   <tbody>
+  <?php foreach($comments as $comment): ?>
     <tr>
       <td><?= $comment->pseudo ?></td>
       <td><?= $comment->content ?></td>

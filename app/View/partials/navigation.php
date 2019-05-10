@@ -17,6 +17,5 @@
   <nav class="nav d-flex justify-content-between">
     <a class="p-2 text-muted" href="<?= Urls::route('pages@index'); ?>">Accueil</a>
     <a class="p-2 text-muted" href="<?= Urls::route('chapters@index'); ?>">Les chapitres</a>
-    <a class="p-2 text-muted" href="<?= Urls::route('pages@contact'); ?>">Contact</a>
   </nav>
 </div>
