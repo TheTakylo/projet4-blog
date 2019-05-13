@@ -11,6 +11,7 @@ return [
 
     'Routes' => [
         ['/', 'pages@index', ['GET']],
+        ['/recherche', 'pages@search', ['GET']],
     
         ['/chapitres', 'chapters@index', ['GET']],
         ['/chapitre/:slug', 'chapters@show', ['GET']],

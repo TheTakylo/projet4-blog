@@ -16,5 +16,14 @@ class PagesController extends AbstractController
         
         return $this->render('pages/index.php', ['chapters' => $chapters]);
     }
+
+    public function search(): Response
+    {
+        $request = $this->getRequest();
+
+        // $search = $request->get->get('s');
+
+        return $this->render('pages/search.php');
+    }
     
 }
