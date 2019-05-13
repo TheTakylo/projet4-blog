@@ -20,4 +20,9 @@ class Urls
         return true;
     }
 
+    static function prefix($group): bool
+    {
+        return Store::getInstance()->getRouter()->match()->prefix($group);
+    }
+
 }

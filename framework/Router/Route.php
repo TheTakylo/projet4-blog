@@ -31,6 +31,8 @@ class Route
     private $params = [];
 
     private $fullName;
+
+    private $prefix;
     
     /**
     * __construct
@@ -40,7 +42,7 @@ class Route
     *
     * @return void
     */
-    public function __construct(string $path, string $action, array $methods = [])
+    public function __construct(string $path, string $action, array $methods = [], $prefix = null)
     {
         $splitted = explode('@', $action);
         
@@ -49,6 +51,11 @@ class Route
         $this->action = $splitted[1];
         $this->methods = $methods;
         $this->path = $path;
+
+        if($prefix) {
+            $this->prefix = $prefix;
+        }
+
     }
     
     /**
@@ -59,7 +66,7 @@ class Route
     */
     public function match(string $path): bool
     {
-        $path_regex = preg_replace('#:([\w]+)#', '([^/]+)', $this->path);
+        $path_regex = preg_replace('#:([\w]+)#', '([^/]+)', $this->getPath());
 
         if(!preg_match("#^$path_regex$#i", $path, $params)){
             return false;
@@ -80,7 +87,7 @@ class Route
             $path = str_replace(":{$key}", $value, $path);
         }
 
-        return $path;
+        return ($this->prefix ?? '') . $path;
     }
     
     /**
@@ -104,7 +111,7 @@ class Route
     */
     public function getPath(): string
     {
-        return $this->path;
+        return ($this->prefix ?? '') . $this->path;
     }
     
 
@@ -148,5 +155,9 @@ class Route
     public function getFullName()
     {
         return $this->fullName;
+    }
+
+    public function prefix($group): bool {
+        return $this->prefix === $group;
     }
 }

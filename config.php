@@ -16,21 +16,24 @@ return [
         ['/chapitre/:slug', 'chapters@show', ['GET']],
 
         ['/chapitre/:chapter_id/comment', 'comments@add', ['POST']],
-    
-        ['/admin', 'admin@index', ['GET']],
-        ['/admin/chapitres', 'admin@chapters', ['GET']],
-        ['/admin/chapitre/nouveau', 'admin@chapterNew', ['GET', 'POST']],
-        ['/admin/chapitre/:id', 'admin@chapterDelete', ['DELETE']],
-        ['/admin/chapitre/editer/:id', 'admin@chapterEdit', ['GET', 'PUT']],
-
         ['/comments/spam/:comment_id', 'comments@spam', ['GET']],
-        ['/admin/commentaires', 'admin@comments', ['GET']],
-        ['/admin/commentaires/spam', 'admin@commentsSpam', ['GET']],
-        ['/admin/commentaires/:id', 'admin@commentDelete', ['DELETE']],
-        ['/admin/commentaires/:id', 'admin@commentDelete', ['DELETE']],
 
-        ['/admin/login', 'security@login', ['GET', 'POST']],
-        ['/admin/logout', 'security@logout', ['GET']]
+        ['/admin', [
+            ['', 'admin@index', ['GET']],
+            ['/chapitres', 'admin@chapters', ['GET']],
+            ['/chapitre/nouveau', 'admin@chapterNew', ['GET', 'POST']],
+            ['/chapitre/:id', 'admin@chapterDelete', ['DELETE']],
+            ['/chapitre/editer/:id', 'admin@chapterEdit', ['GET', 'PUT']],
+
+            ['/commentaires', 'admin@comments', ['GET']],
+            ['/commentaires/spam', 'admin@commentsSpam', ['GET']],
+            ['/commentaires/:id', 'admin@commentDelete', ['DELETE']],
+            ['/commentaires/:id', 'admin@commentDelete', ['DELETE']],
+
+            ['/login', 'security@login', ['GET', 'POST']],
+            ['/logout', 'security@logout', ['GET']]
+        ]
+        ]
     ],
 
     'Admin' => [

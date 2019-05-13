@@ -35,7 +35,15 @@ class Router
     private function setRoutes(array $routes)
     {
         foreach($routes as $route) {
-            array_push($this->routes, new Route($route[0], $route[1], $route[2] ?? [] ));
+
+            if(is_array($route[1])) {
+                foreach($route[1] as $prefixedRoutes) {
+                    array_push($this->routes, new Route($prefixedRoutes[0], $prefixedRoutes[1], $prefixedRoutes[2] ?? [], $route[0]));
+                }
+            } else {
+                array_push($this->routes, new Route($route[0], $route[1], $route[2] ?? []));
+            }
+
         }
     }
 
