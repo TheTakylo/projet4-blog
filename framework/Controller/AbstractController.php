@@ -7,9 +7,10 @@ use Framework\Http\Response;
 use Framework\Templating\View;
 use Framework\Helpers\UrlsHelper;
 use Framework\Configuration\Store;
+use Framework\Session\FlashManager;
 use Framework\Http\RedirectResponse;
 use Framework\Session\SessionManager;
-use Framework\Session\FlashManager;
+use Framework\Database\Repository\AbstractRepository;
 
 abstract class AbstractController
 {
@@ -83,6 +84,11 @@ abstract class AbstractController
     public function flash()
     {
         return new FlashManager();
+    }
+
+    public function getRepository($repository): AbstractRepository
+    {
+        return new $repository();
     }
 
 }

@@ -1,5 +1,8 @@
 <?php
+ini_set('display_errors', 'on');
 session_start();
+
+function dump($var) { echo '<pre>' , var_dump($var) , '</pre>'; die(); }
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__DIR__));

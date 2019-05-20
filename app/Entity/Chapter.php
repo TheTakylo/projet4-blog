@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Framework\Helpers\TextHelper;
 use Framework\Database\Entity\AbstractEntity;
 use Framework\Database\Entity\SchemaParameter;
 
@@ -33,6 +34,11 @@ class Chapter extends AbstractEntity
             new SchemaParameter('created_at', 'created_at', 'datetime'),
             new SchemaParameter('updated_at', 'updated_at', 'datetime')
         ];
+    }
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
     }
 
     /**
@@ -71,6 +77,8 @@ class Chapter extends AbstractEntity
     public function setTitle($title)
     {
         $this->title = $title;
+
+        $this->slug = TextHelper::slug($title);
 
         return $this;
     }
@@ -116,6 +124,14 @@ class Chapter extends AbstractEntity
     }
 
     /**
+     * Get the value of updated_at
+     */ 
+    public function getUpdated_at()
+    {
+        return $this->updated_at;
+    }
+
+    /**
      * Set the value of updated_at
      *
      * @return  self
@@ -146,4 +162,5 @@ class Chapter extends AbstractEntity
 
         return $this;
     }
+
 }

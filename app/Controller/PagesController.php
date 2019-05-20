@@ -3,8 +3,8 @@ namespace App\Controller;
 
 use App\Model\Chapters;
 use Framework\Http\Response;
-use Framework\Controller\AbstractController;
 use App\Repository\ChapterRepository;
+use Framework\Controller\AbstractController;
 
 class PagesController extends AbstractController
 {
@@ -13,14 +13,13 @@ class PagesController extends AbstractController
     
     public function index(): Response
     {
-        $chapters = (new ChapterRepository())->findAll();
-        $chapters_total = count($chapters);
+        $chaptersRepository = $this->getRepository(ChapterRepository::class);
 
-        //$chapters = (new Chapters())->selectForHome();
-        
+        $chapters = $chaptersRepository->findAll();
+
         return $this->render('pages/index.php', [
             'chapters' => $chapters,
-            'chapters_total' => $chapters_total
+            'chapters_total' => 0
         ]);
     }
 

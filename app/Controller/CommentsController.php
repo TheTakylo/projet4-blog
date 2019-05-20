@@ -2,45 +2,58 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use Framework\Http\Response;
+use App\Repository\ChapterRepository;
+use App\Repository\CommentRepository;
 use Framework\Controller\AbstractController;
-use App\Model\Chapters;
-use App\Model\Comments;
 
 class CommentsController extends AbstractController
 {
     
     public function add($chapter_id): Response
     {
-        $chapter = (new Chapters())->findBy('id', $chapter_id);
+        $chapterRepository = $this->getRepository(ChapterRepository::class);
         
+        $chapter = $chapterRepository->findWhere(['id' => $chapter_id]);
+
         if(!$chapter) {
             return $this->referer();
         }
         
-        $is_admin = 0;
+        $commentRepository = $this->getRepository(CommentRepository::class);
+
+        $comment = new Comment();
+
         $data = $this->request->post->data();
-        
+
         if($this->session()->has('admin')) {
-            $data['commentEmail'] = $this->config('Admin')['email'];
-            $data['commentPseudo'] = "Jean Forteroche";
-            $is_admin = 1;
+            $comment->setEmail($this->config('Admin')['email']);
+            $comment->setPseudo('Jean Forteroche');
+            $comment->setContent($data['commentContent']);
+            $comment->setIs_admin(1);
+        } else {
+            $comment->setEmail($data['commentEmail']);
+            $comment->setPseudo($data['commentPseudo']);
         }
+
+        $comment->setContent($data['commentContent']);
+        $comment->setChapter_id($chapter_id);
         
-        (new Comments())->insert($data, $chapter_id, $is_admin);
+        $commentRepository->save($comment);
 
         return $this->redirectTo('chapters@show', ['slug' => $chapter->slug]);
     }
     
     public function spam($comment_id)
     {
-        $comments = (new Comments());
+        $commentRepository = $this->getRepository(CommentRepository::class);
         
-        if(!$comments->findBy('id', $comment_id)) {
+        if(!$commentRepository->findWhere(['id' => $comment_id])) {
             return $this->referer();
         }
         
-        $comments->markSpam($comment_id);
+        $commentRepository->update(['is_spam' => 1], ['id' => $comment_id]);
         
         return $this->referer();
     }

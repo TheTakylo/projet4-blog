@@ -2,9 +2,11 @@
 
 namespace Framework\Database\Entity;
 
+use Iterator;
+use Countable;
 use Framework\Database\Entity\SchemaParameter;
 
-abstract class AbstractEntity
+abstract class AbstractEntity implements Countable
 {
     /**
      * @var SchemaParameter[]
@@ -26,10 +28,6 @@ abstract class AbstractEntity
      */
     static public function getSchemaWithDbNameAsKey(): array
     {
-        if (self::$schemaWithDbNameAsKey) {
-            return self::$schemaWithDbNameAsKey;
-        }
-
         self::$schemaWithDbNameAsKey = [];
         foreach (static::getSchema() as $value) {
             self::$schemaWithDbNameAsKey[$value->getColumnName()] = $value;
@@ -61,6 +59,10 @@ abstract class AbstractEntity
         $field = 'get' . ucfirst($property);
         
         return $this->$field();
+    }
+
+    public function count() {
+        return 1;
     }
 
 }
