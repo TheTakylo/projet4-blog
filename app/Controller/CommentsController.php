@@ -15,7 +15,7 @@ class CommentsController extends AbstractController
     {
         $chapterRepository = $this->getRepository(ChapterRepository::class);
         
-        $chapter = $chapterRepository->findWhere(['id' => $chapter_id]);
+        $chapter = $chapterRepository->findOne(['id' => $chapter_id]);
 
         if(!$chapter) {
             return $this->referer();
@@ -42,7 +42,7 @@ class CommentsController extends AbstractController
         
         $commentRepository->save($comment);
 
-        return $this->redirectTo('chapters@show', ['slug' => $chapter->slug]);
+        return $this->redirectTo('chapters@show', ['slug' => $chapter->getSlug()]);
     }
     
     public function spam($comment_id)

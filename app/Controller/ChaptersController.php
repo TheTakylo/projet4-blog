@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Model\Chapters;
 use App\Model\Comments;
 use Framework\Http\Response;
@@ -26,12 +27,11 @@ class ChaptersController extends AbstractController
     public function index(): Response
     {
 
-        $chapters = $this->chapterRepository->findAll();
+        $chapters = $this->chapterRepository->findAllJoin(Comment::class, 'id', 'chapter_id');
 
         return $this->render('chapters/index.php', [
-            'chapters' => $chapters,
-            'chapters_total' => count($chapters)
-            ]);
+            'chapters' => $chapters
+         ]);
     }
 
     public function show(string $slug): Response

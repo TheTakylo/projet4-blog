@@ -45,7 +45,8 @@ class AdminController extends AbstractController
     
     public function chapters(): Response
     {
-        $chapters = $this->chapterRepository->findAll();
+        $chapters = $this->chapterRepository->findAllJoin(Comment::class, 'id', 'chapter_id');
+
         
         return $this->render('admin/chapters/list.php', ['chapters' => $chapters]);
     }
@@ -93,7 +94,7 @@ class AdminController extends AbstractController
     
     public function chapterEdit($id): Response
     {
-        $chapter = $this->chapterRepository->findWhere(['id' => $id]);
+        $chapter = $this->chapterRepository->findOne(['id' => $id]);
 
         if(!$chapter) {
             $this->flash()->add('danger', "Le chapitre n'existe pas");
@@ -113,7 +114,7 @@ class AdminController extends AbstractController
                 $this->flash()->add('danger', 'Erreur');
             }
         }
-        
+
         return $this->render('admin/chapters/form.php', ['edit' => true, 'chapter' => $chapter]);
     }
     

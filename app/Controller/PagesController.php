@@ -13,9 +13,9 @@ class PagesController extends AbstractController
     
     public function index(): Response
     {
-        $chaptersRepository = $this->getRepository(ChapterRepository::class);
+        $chapterRepository = $this->getRepository(ChapterRepository::class);
 
-        $chapters = $chaptersRepository->findAll();
+        $chapters = $chapterRepository->findAllJoin(Comment::class, 'id', 'chapter_id');
 
         return $this->render('pages/index.php', [
             'chapters' => $chapters,
@@ -27,9 +27,16 @@ class PagesController extends AbstractController
     {
         $request = $this->getRequest();
 
-        // $search = $request->get->get('s');
+        $chapters = [];
 
-        return $this->render('pages/search.php');
+        if($search = $request->get->get('s')) {
+            $chapterRepository = $this->getRepository(ChapterRepository::class);
+            $chapters = $chapterRepository->findLike('title', $search);
+        }
+
+        return $this->render('pages/search.php', [
+            'chapters' => $chapters
+        ]);
     }
     
 }

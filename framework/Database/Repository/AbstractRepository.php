@@ -2,6 +2,7 @@
 
 namespace Framework\Database\Repository;
 
+use App\Entity\Comment;
 use Framework\Configuration\Store;
 use Framework\Database\Entity\AbstractEntity;
 use Framework\Database\Entity\SchemaParameter;
@@ -113,7 +114,7 @@ abstract class AbstractRepository
             $queryData[":value_{$key}"] = $value;
             $queryConditions .= " SET {$key} = :value_{$key} ";
         }
-
+        
         $query = $this->db->prepare("UPDATE {$this->getEntity()::getTableName()}  {$queryConditions}");
         
         return $query->execute($queryData);
@@ -134,6 +135,58 @@ abstract class AbstractRepository
         return $req->fetch()->result;
     }
     
+    public function findLike($where, $value)
+    {
+        $query = $this->db->prepare("SELECT * FROM {$this->getEntity()::getTableName()} WHERE {$where} LIKE :where_value ORDER BY id DESC");
+        
+        $query->execute([':where_value' => "%{$value}%"]);
+
+        return $this->hydrateEntities($query->fetchAll());
+    }
+    
+    public function findAllJoin($entity, $join, $joinDest, $where = [], $limit = "")
+    {
+        $data = [];
+        
+        $tableName = $this->getEntity()::getTableName();
+        $entity = new Comment();
+        $relationName = $entity->getTableName();
+        
+        if($limit) {
+            $data[':limit'] = (int) $limit;
+        }
+        
+        $queryConditions = "";
+        $queryData = [];
+        
+        foreach($where as $key => $value) {
+            if($queryConditions != "") {
+                $queryConditions .= " AND ";
+            }
+            
+            $queryData[":value_{$key}"] = $value;
+            $queryConditions .= " WHERE {$key} = :value_{$key} ";
+        }
+        
+        $limit = ($limit) ? " LIMIT {$limit} " : "";
+        
+        
+        $query = "SELECT {$tableName}.*, 
+        COUNT(distinct {$relationName}.id) AS `{$relationName}_count`
+        FROM {$tableName}
+        LEFT JOIN {$entity->getTableName()} ON {$relationName}.{$joinDest} = {$tableName}.{$join}
+        {$queryConditions}
+        GROUP BY {$tableName}.id 
+        ORDER BY {$tableName}.id DESC 
+        {$limit} 
+        ";
+        
+        $query  = $this->db->prepare($query);
+        $query->execute($data);
+        
+        return $query->fetchAll();
+    }
+    
     private function hydrateEntities($datas)
     {
         if(!$datas) {
@@ -144,8 +197,6 @@ abstract class AbstractRepository
             return $this->hydrateEntity($data);
         }, $datas);
     }
-    
-    
     
     /**
     * @return AbstractEntity
