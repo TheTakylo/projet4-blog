@@ -3,9 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Chapter;
-use App\Entity\Comment;
-use App\Model\Chapters;
-use App\Model\Comments;
 use Framework\Http\Response;
 use App\Repository\ChapterRepository;
 use App\Repository\CommentRepository;
@@ -45,9 +42,8 @@ class AdminController extends AbstractController
     
     public function chapters(): Response
     {
-        $chapters = $this->chapterRepository->findAllJoin(Comment::class, 'id', 'chapter_id');
+        $chapters = $this->chapterRepository->findAllWithNbComments();
 
-        
         return $this->render('admin/chapters/list.php', ['chapters' => $chapters]);
     }
     
@@ -94,6 +90,7 @@ class AdminController extends AbstractController
     
     public function chapterEdit($id): Response
     {
+        /** @var Chapter $chapter */
         $chapter = $this->chapterRepository->findOne(['id' => $id]);
 
         if(!$chapter) {
@@ -105,8 +102,7 @@ class AdminController extends AbstractController
         if ($this->request->getMethod() === 'PUT') {
             $data = $this->request->post->all();
             
-            $chapters = (new Chapters());
-            if ($chapters->update($data['chapterName'], $data['chapterContent'], $id)) {
+            if ($this->chapterRepository->update($data['chapterName'], $data['chapterContent'], $id)) {
                 $this->flash()->add('success', 'Chapitre modifié');
 
                 return $this->redirectTo('admin@chapters');
@@ -127,8 +123,7 @@ class AdminController extends AbstractController
 
     public function commentDelete($id): Response
     {
-
-        if($this->commentRepository->remove($id)) {
+        if($this->commentRepository->remove('id', $id)) {
             $this->flash()->add('success', 'Le commentaire à bien été supprimé');
         } else {
             $this->flash()->add('danger', 'Erreur, le commentaire n\'a pas été supprimé');
@@ -139,7 +134,7 @@ class AdminController extends AbstractController
 
     public function comments(): Response
     {
-        $comments = $this->commentRepository->findAll();
+        $comments = $this->commentRepository->findAllForAdmin();
         
         return $this->render('admin/comments/list.php', ['comments' => $comments]);
     }

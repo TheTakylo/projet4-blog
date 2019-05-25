@@ -15,6 +15,8 @@ class Chapter extends AbstractEntity
     private $slug;
     private $created_at;
     private $updated_at;
+    
+    public $other;
 
     public static function getTableName(): string
     {
@@ -32,7 +34,7 @@ class Chapter extends AbstractEntity
             new SchemaParameter('content', 'content', 'string'),
             new SchemaParameter('slug', 'slug', 'string'),
             new SchemaParameter('created_at', 'created_at', 'datetime'),
-            new SchemaParameter('updated_at', 'updated_at', 'datetime')
+            new SchemaParameter('updated_at', 'updated_at', 'datetime'),
         ];
     }
 

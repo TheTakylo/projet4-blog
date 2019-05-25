@@ -38,7 +38,7 @@ class Store
         return $this->get('Router');
     }
 
-    public function getDatabase()
+    public function getDatabase(): \PDO
     {
         return $this->get('Database');
     }

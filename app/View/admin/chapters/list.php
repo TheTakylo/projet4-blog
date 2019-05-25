@@ -24,7 +24,7 @@
           Modifié le <?= date('d/m/Y à H:i:s', strtotime($chapter->updated_at)); ?>
           <?php endif; ?>
         </td>
-        <td><?= $chapter->comments_count ?></td>
+        <td><?= $chapter->other['comments_count']; ?></td>
         <td>
           <a href="<?= Urls::route('admin@chapterEdit', ['id' => $chapter->id]); ?>" class="btn btn-sm btn-secondary">Modifier</a>
           <form class="d-inline-block" method="post" action="<?= Urls::route('admin@chapterDelete', ['id' => $chapter->id]); ?>">

@@ -1,9 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Comment;
-use App\Model\Chapters;
-use App\Model\Comments;
 use Framework\Http\Response;
 use App\Repository\ChapterRepository;
 use App\Repository\CommentRepository;
@@ -26,8 +23,9 @@ class ChaptersController extends AbstractController
 
     public function index(): Response
     {
+        $pageNumber = $this->getRequest()->get->get('page') ?? 1;
 
-        $chapters = $this->chapterRepository->findAllJoin(Comment::class, 'id', 'chapter_id');
+        $chapters = $this->chapterRepository->findAllWithNbComments($pageNumber);
 
         return $this->render('chapters/index.php', [
             'chapters' => $chapters
@@ -39,7 +37,6 @@ class ChaptersController extends AbstractController
         $chapter = $this->chapterRepository->findOne(['slug' => $slug]);
 
         if(!$chapter) {
-            // chapitre introuvable
             die();
         }
 

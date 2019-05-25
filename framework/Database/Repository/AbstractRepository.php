@@ -10,13 +10,13 @@ use Framework\Database\Entity\SchemaParameter;
 abstract class AbstractRepository
 {
     
-    private $db;
-    
+    protected $db;
+
     public function __construct()
     {
         $this->db = Store::getInstance()->getDatabase();
     }
-    
+
     /**
     * @return array
     */
@@ -24,10 +24,10 @@ abstract class AbstractRepository
     {
         $req = $this->db->prepare('SELECT ' . $this->getColumsNameString() . ' FROM ' . $this->getEntity()::getTableName());
         $req->execute();
-        
+
         return $this->hydrateEntities($req->fetchAll());
     }
-    
+
     public function findOne($conditions)
     {
         $item = $this->findWhere($conditions);
@@ -35,9 +35,6 @@ abstract class AbstractRepository
         return $item[0];
     }
     
-    /**
-    * @param int $id
-    */
     public function findWhere($conditions, $orderBy = "")
     {
         $queryConditions = "";
@@ -101,28 +98,10 @@ abstract class AbstractRepository
         return $query->execute($data);
     }
     
-    public function update($data, $conditions)
-    {
-        $queryConditions = "";
-        $queryData = [];
-        
-        foreach($data as $key => $value) {
-            if($queryConditions != "") {
-                $queryConditions .= " AND ";
-            }
-            
-            $queryData[":value_{$key}"] = $value;
-            $queryConditions .= " SET {$key} = :value_{$key} ";
-        }
-        
-        $query = $this->db->prepare("UPDATE {$this->getEntity()::getTableName()}  {$queryConditions}");
-        
-        return $query->execute($queryData);
-    }
-    
     public function count($where = null, $value = null): int
     {
         $data = [];
+        $condition = "";
         
         if($where && $value) {
             $condition = "WHERE $where = :value";
@@ -140,54 +119,11 @@ abstract class AbstractRepository
         $query = $this->db->prepare("SELECT * FROM {$this->getEntity()::getTableName()} WHERE {$where} LIKE :where_value ORDER BY id DESC");
         
         $query->execute([':where_value' => "%{$value}%"]);
-
+        
         return $this->hydrateEntities($query->fetchAll());
     }
     
-    public function findAllJoin($entity, $join, $joinDest, $where = [], $limit = "")
-    {
-        $data = [];
-        
-        $tableName = $this->getEntity()::getTableName();
-        $entity = new Comment();
-        $relationName = $entity->getTableName();
-        
-        if($limit) {
-            $data[':limit'] = (int) $limit;
-        }
-        
-        $queryConditions = "";
-        $queryData = [];
-        
-        foreach($where as $key => $value) {
-            if($queryConditions != "") {
-                $queryConditions .= " AND ";
-            }
-            
-            $queryData[":value_{$key}"] = $value;
-            $queryConditions .= " WHERE {$key} = :value_{$key} ";
-        }
-        
-        $limit = ($limit) ? " LIMIT {$limit} " : "";
-        
-        
-        $query = "SELECT {$tableName}.*, 
-        COUNT(distinct {$relationName}.id) AS `{$relationName}_count`
-        FROM {$tableName}
-        LEFT JOIN {$entity->getTableName()} ON {$relationName}.{$joinDest} = {$tableName}.{$join}
-        {$queryConditions}
-        GROUP BY {$tableName}.id 
-        ORDER BY {$tableName}.id DESC 
-        {$limit} 
-        ";
-        
-        $query  = $this->db->prepare($query);
-        $query->execute($data);
-        
-        return $query->fetchAll();
-    }
-    
-    private function hydrateEntities($datas)
+    protected function hydrateEntities($datas)
     {
         if(!$datas) {
             return [];
@@ -203,14 +139,19 @@ abstract class AbstractRepository
     *
     * @throws \Exception
     */
-    private function hydrateEntity($datas): AbstractEntity
+    protected function hydrateEntity($datas): AbstractEntity
     {
         $className = $this->getEntity();
         $entity = new $className();
         foreach ($datas as $key => $value) {
             $setterName = $this->getEntity()::getSetterNameFromColumName($key);
             
-            $entity->$setterName($value);
+            if($setterName === 'other') {
+                $entity->addOther($key, $value);
+            } else {
+                $entity->$setterName($value);
+            }
+            
         }
         
         return $entity;

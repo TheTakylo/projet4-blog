@@ -2,12 +2,13 @@
 
 namespace Framework\Database\Entity;
 
-use Iterator;
 use Countable;
-use Framework\Database\Entity\SchemaParameter;
 
 abstract class AbstractEntity implements Countable
 {
+
+    public $other;
+
     /**
      * @var SchemaParameter[]
      */
@@ -45,10 +46,10 @@ abstract class AbstractEntity implements Countable
     static public function getSetterNameFromColumName(string $columName): string
     {
         /** @var SchemaParameter $schemaParameter */
-        $schemaParameter = self::getSchemaWithDbNameAsKey()[$columName];
+        $schemaParameter = @self::getSchemaWithDbNameAsKey()[$columName];
 
         if (!$schemaParameter) {
-            throw new \Exception('The column "' . $columName . '" doesn\'t exist on "' . static::class . '"');
+            return 'other';
         }
 
         return 'set' . ucfirst($schemaParameter->getParameterName());
@@ -65,4 +66,24 @@ abstract class AbstractEntity implements Countable
         return 1;
     }
 
+
+    /**
+     * Get the value of other
+     */ 
+    public function getOther()
+    {
+        return $this->other;
+    }
+
+    /**
+     * Set the value of other
+     *
+     * @return  self
+     */ 
+    public function addOther($other, $value)
+    {
+        $this->other[$other] = $value;
+
+        return $this;
+    }
 }

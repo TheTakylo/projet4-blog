@@ -8,8 +8,8 @@
   <button type="submit" class="btn btn-primary">Rechercher</button>
 </form>
 
-<?php if($chapters): ?>
-<div class="row">
+<?php if(!empty($chapters)): ?>
+<div class="row mt-5">
     <div class="col-md-8 offset-md-2">
         <?php foreach($chapters as $chapter): ?>
             <div class="blog-post border-bottom">

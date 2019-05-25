@@ -20,7 +20,7 @@ abstract class AbstractController
      */
     protected $layout = null;
 
-    /** @var Request */
+    /** @var Request $request */
     protected $request;
 
     public function __construct()
@@ -54,7 +54,7 @@ abstract class AbstractController
         return $this->redirect($this->request->getReferer());
     }
 
-    public function getDatabase()
+    public function getDatabase(): \PDO
     {
         return Store::getInstance()->getDatabase();
     }
@@ -64,11 +64,6 @@ abstract class AbstractController
         return Store::getInstance()->get('Request');
     }
 
-    /**
-     * Permet de récuperer un tableau de la configuration
-     * 
-     * @var string $item
-     */
     public function config($item)
     {
         $item = 'get' . ucfirst($item);
@@ -76,12 +71,12 @@ abstract class AbstractController
         return Store::getInstance()->get('Config')->$item();
     }
 
-    public function session()
+    public function session(): SessionManager
     {
         return new SessionManager();
     }
 
-    public function flash()
+    public function flash(): FlashManager
     {
         return new FlashManager();
     }

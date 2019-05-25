@@ -4,7 +4,6 @@ namespace Framework\Configuration;
 
 use Framework\Configuration\Exception\ConfigurationNotFound;
 
-
 class ConfigurationParser
 {
 

@@ -45,7 +45,7 @@ class CommentsController extends AbstractController
         return $this->redirectTo('chapters@show', ['slug' => $chapter->getSlug()]);
     }
     
-    public function spam($comment_id)
+    public function spam($comment_id): Response
     {
         $commentRepository = $this->getRepository(CommentRepository::class);
         
@@ -53,7 +53,7 @@ class CommentsController extends AbstractController
             return $this->referer();
         }
         
-        $commentRepository->update(['is_spam' => 1], ['id' => $comment_id]);
+        $commentRepository->setSpam($comment_id);
         
         return $this->referer();
     }

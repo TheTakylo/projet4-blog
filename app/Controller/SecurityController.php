@@ -10,11 +10,11 @@ class SecurityController extends AbstractController
 
     public function login(): Response
     {
-        if($this->request->getMethod() === 'POST') {
+        if ($this->request->getMethod() === 'POST') {
             $admin = $this->config('Admin');
             $data = $this->request->post->data();
 
-            if($data['email'] === $admin['email'] && $data['password'] === $admin['password']) {
+            if ($data['email'] === $admin['email'] && $data['password'] === $admin['password']) {
                 $this->session()->set('admin', true);
 
                 return $this->redirectTo('admin@index');
@@ -26,7 +26,7 @@ class SecurityController extends AbstractController
         return $this->render('security/login.php');
     }
 
-    public function logout()
+    public function logout(): Response
     {
         $this->session()->clear();
 

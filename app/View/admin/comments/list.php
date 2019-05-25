@@ -20,7 +20,7 @@
       <td><?= $comment->content ?></td>
       <td><?= date('d/m/Y à H:i:s', strtotime($comment->created_at)); ?></td>
       <td><?= ($comment->is_spam == 0) ? "<div class='badge badge-primary'>normal</div>" : "<div class='badge badge-danger'>spam</div>" ?></td>
-      <td><a href="<?= Urls::route('chapters@show', ['slug' => $comment->chapter_slug]); ?>"><?= $comment->chapter_title ?></a></td>
+      <td><a href="<?= Urls::route('chapters@show', ['slug' => $comment->other['chapter_slug']]); ?>"><?= $comment->other['chapter_title']?></a></td>
       <td>
         <form class="d-inline-block" method="post" action="<?= Urls::route('admin@commentDelete', ['id' => $comment->id]); ?>">
             <input type="hidden" name="_method" value="DELETE">

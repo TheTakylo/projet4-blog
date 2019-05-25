@@ -8,6 +8,7 @@ use Framework\Database\Exception\InvalidDatabaseException;
 class Database
 {
 
+    /** @var PDO $database */
     private $database;
 
     public function __construct(array $config)
@@ -22,7 +23,7 @@ class Database
         } 
     }
     
-    public function getConnection()
+    public function getConnection(): PDO
     {
         return $this->database;
     }

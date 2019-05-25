@@ -1,6 +1,6 @@
 <footer class="blog-footer mt-5">
-  <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+  <p><strong>Jean Forteroche</strong> - <?= date('Y'); ?>. Site réalisé par Sébastien Thuret</p>
   <p>
-    <a href="#">Back to top</a>
+    <a href="#">Retour en haut du site</a>
   </p>
 </footer>

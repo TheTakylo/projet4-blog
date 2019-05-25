@@ -29,30 +29,28 @@ class View
         $this->params = $params;
         
     }
-
+    
     private function loadHelpers() {
-        require CORE . '/Templating/Helpers/Assets.php';
-        require CORE . '/Templating/Helpers/Urls.php';
-        require CORE . '/Templating/Helpers/Partials.php';
-        require CORE . '/Templating/Helpers/Text.php';
-        require CORE . '/Templating/Helpers/Session.php';
-        require CORE . '/Templating/Helpers/Flash.php';
+        $helpers = ['Assets', 'Urls', 'Partials','Text', 'Session', 'Flash', 'Paginate'];
+        
+        foreach($helpers as $helper) {
+            include CORE . "/Templating/Helpers/{$helper}.php";
+        }
     }
     
     /**
     * @return string
     */
-    public function generate()
+    public function generate(): string
     {
         if(!file_exists(TEMPLATE . $this->file)) {
             throw new TemplateNotFoundException("Template not found");
         }
-
         
         extract($this->params);
         
         $this->loadHelpers();
-
+        
         ob_start();
         
         require TEMPLATE . $this->file;

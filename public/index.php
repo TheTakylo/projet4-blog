@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 'on');
+ini_set('display_errors', 1);
 session_start();
 
 function dump($var) { echo '<pre>' , var_dump($var) , '</pre>'; die(); }
