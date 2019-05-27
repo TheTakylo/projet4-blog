@@ -1,6 +1,6 @@
 <?php $title = "Accueil" ?>
 <div class="jumbotron text-white jumbotron-home">
-    <div class="col-md-6 px-0">
+    <div class="col-md-12 px-0">
       <h1 class="display-4 font-italic">Billet simple pour l'Alaska</h1>
     </div>
   </div>
