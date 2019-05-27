@@ -2,6 +2,10 @@
 
 return [
 
+    'Application' => [
+        'environement' => 'dev'
+    ],
+
     'Database' => [
         'host' => 'localhost',
         'user' => 'root',
@@ -34,7 +38,9 @@ return [
             ['/login', 'security@login', ['GET', 'POST']],
             ['/logout', 'security@logout', ['GET']]
         ]
-        ]
+        ],
+
+        ['/:error', 'errors@notFound', ['GET']]
     ],
 
     'Admin' => [

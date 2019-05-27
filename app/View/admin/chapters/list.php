@@ -36,6 +36,7 @@
         <?php endforeach; ?>
       </tbody>
     </table>
+    <?php Paginate::show('App\Repository\ChapterRepository'); ?>
     <?php else: ?>
     <div class="alert alert-primary">Aucun chapitre</div>
 <?php endif; ?>

@@ -2,14 +2,18 @@
 use Framework\Configuration\Store;
 
 class Paginate
-{   
-  
+{
+
   static function show($repository)
   {
     $repository = new $repository();
     
     $page = (Store::getInstance()->get('Request')->get->get('page')) ?? 1;
-    $nb =  ceil($repository->count() / $repository::$elemMax ) + 1;
+    $nb =  ceil($repository->count() / $repository::getMaxElements() ) + 1;
+
+    if($nb - 1 <= 1) {
+        return;
+    }
 
     
     $pagination = "<nav><ul class='pagination'>";

@@ -9,7 +9,9 @@ use Framework\Helpers\TextHelper;
 class ChapterRepository extends AbstractRepository
 {
     
-    static $elemMax = 6;
+    static $pagination = [
+        'maxElements' => 8
+    ];
     
     protected function getEntity(): string
     {
@@ -18,12 +20,12 @@ class ChapterRepository extends AbstractRepository
     
     private function getOffset($pageNumber)
     {
-        return ($pageNumber - 1) * self::$elemMax;
+        return ($pageNumber - 1) * self::getMaxElements();
     }
     
     public function findAllWithNbComments($pageNumber = null)
     {
-        $limit = ($pageNumber) ? 'LIMIT :p_offset, :p_limit' : '';
+        $limit = ($pageNumber) ? 'LIMIT :p_offset, :p_limit' : ' LIMIT 3 ';
         
 
         $query = "SELECT chapters.*, COUNT(distinct comments.id) AS comments_count
@@ -34,7 +36,7 @@ class ChapterRepository extends AbstractRepository
         
         $query = $this->db->prepare($query);
         
-        $query->bindValue(':p_limit', self::$elemMax, \PDO::PARAM_INT);
+        $query->bindValue(':p_limit', self::getMaxElements(), \PDO::PARAM_INT);
         $query->bindValue(':p_offset', $this->getOffset($pageNumber), \PDO::PARAM_INT);
         
         $query->execute();
@@ -57,6 +59,11 @@ class ChapterRepository extends AbstractRepository
             'updated_at' => date('Y-m-d H:i:s'),
             'id' => $id
         ]);
+    }
+
+    static function getMaxElements(): int
+    {
+        return (int) self::$pagination['maxElements'];
     }
     
 }

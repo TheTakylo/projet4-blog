@@ -30,7 +30,8 @@ class PagesController extends AbstractController
         }
 
         return $this->render('pages/search.php', [
-            'chapters' => $chapters ?? []
+            'chapters' => $chapters ?? [],
+            'search_value' => $search
         ]);
     }
 

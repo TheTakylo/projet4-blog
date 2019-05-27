@@ -3,6 +3,7 @@
 namespace Framework\Router;
 
 use Framework\Http\Request;
+use Framework\Router\Exception\RouteNotFoundException;
 
 class Router
 {
@@ -56,7 +57,8 @@ class Router
                 return $route;
             }
         }
-        return null;
+
+        throw new RouteNotFoundException();
     }
     
     public function find(string $action): ?Route

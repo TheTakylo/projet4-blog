@@ -5,7 +5,7 @@ use Framework\Templating\Exception\PartialNotFoundException;
 class Partials
 {
 
-    public function load(string $partial)
+    static function load(string $partial)
     {
         $path = TEMPLATE . $partial;
 

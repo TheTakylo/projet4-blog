@@ -42,7 +42,9 @@ class AdminController extends AbstractController
     
     public function chapters(): Response
     {
-        $chapters = $this->chapterRepository->findAllWithNbComments();
+        $pageNumber = $this->getRequest()->get->get('page') ?? 1;
+
+        $chapters = $this->chapterRepository->findAllWithNbComments($pageNumber);
 
         return $this->render('admin/chapters/list.php', ['chapters' => $chapters]);
     }

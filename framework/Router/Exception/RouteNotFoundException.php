@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Http\Router\Exception;
+namespace Framework\Router\Exception;
 
 class RouteNotFoundException extends \RuntimeException
 {

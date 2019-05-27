@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Framework\Helpers\Captcha\Captcha;
 use Framework\Http\Response;
 use Framework\Controller\AbstractController;
 
@@ -10,20 +11,28 @@ class SecurityController extends AbstractController
 
     public function login(): Response
     {
+        $captcha = new Captcha();
+
         if ($this->request->getMethod() === 'POST') {
             $admin = $this->config('Admin');
             $data = $this->request->post->data();
 
-            if ($data['email'] === $admin['email'] && $data['password'] === $admin['password']) {
-                $this->session()->set('admin', true);
+            if ($captcha->validate($data['inputCaptcha'])) {
+                if ($data['email'] === $admin['email'] && $data['password'] === $admin['password']) {
+                    $this->session()->set('admin', true);
 
-                return $this->redirectTo('admin@index');
+                    return $this->redirectTo('admin@index');
+                } else {
+                    $this->flash()->add('danger', 'Identifiants incorrects');
+                }
             } else {
-                $this->flash()->add('danger', 'Identifiants incorrects');
+                $this->flash()->add('danger', 'Réponse de sécurité incorrecte');
             }
         }
 
-        return $this->render('security/login.php');
+        return $this->render('security/login.php', [
+            'captcha' => $captcha
+        ]);
     }
 
     public function logout(): Response

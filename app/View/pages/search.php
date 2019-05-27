@@ -1,16 +1,16 @@
 <?php $title = 'Votre recherche'; ?>
 
-<form method="GET" action="<?= Urls::route('pages@search'); ?>">
+<form class="" method="GET" action="<?= Urls::route('pages@search'); ?>">
   <div class="form-group">
     <label for="inputSearch">Votre recherche</label>
-    <input type="text" name="s" class="form-control" id="inputSearch" placeholder="Votre recherche">
+    <input value="<?= $search_value ?>" type="text" name="s" class="form-control" id="inputSearch" placeholder="Votre recherche">
   </div>
   <button type="submit" class="btn btn-primary">Rechercher</button>
 </form>
 
 <?php if(!empty($chapters)): ?>
 <div class="row mt-5">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-8">
         <?php foreach($chapters as $chapter): ?>
             <div class="blog-post border-bottom">
                 <h2 class="blog-post-title"><?= $chapter->title; ?></h2>

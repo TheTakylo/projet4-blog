@@ -2,17 +2,15 @@
 
 namespace Framework\Http\DataRequest;
 
-use Framework\Http\DataRequest\AbstractDataRequest;
-
 class PostRequest extends AbstractDataRequest
 {
     public function get($item = false, $secure = true)
     {
-        if(!$item) {
+        if (!$item) {
             return parent::get();
         }
 
-        if(!$secure) {
+        if (!$secure) {
             return parent::get($item);
         }
 
@@ -23,7 +21,7 @@ class PostRequest extends AbstractDataRequest
     {
         $output = [];
 
-        foreach($this->all() as $item => $v) {
+        foreach ($this->all() as $item => $v) {
             $output[$item] = $this->get($item);
         }
 

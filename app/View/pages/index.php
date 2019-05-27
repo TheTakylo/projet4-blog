@@ -26,8 +26,8 @@
 
   <aside class="col-md-4 blog-sidebar">
     <div class="p-4 mb-3 bg-light rounded">
-      <h4 class="font-italic">About</h4>
-      <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+      <h4 class="font-italic mb-3">A propos de moi</h4>
+      <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
     </div>
   </aside>
 
