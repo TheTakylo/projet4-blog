@@ -6,26 +6,33 @@ use Framework\Configuration\Exception\ConfigurationNotFound;
 
 class ConfigurationParser
 {
-
-    private $config;
-
-    public function __construct($filePath)
+    
+    /** @var array $config */
+    private $config = [];
+    
+    public function register($key, $file)
     {
+        $filePath = ROOT . DS . $file;
         if(!file_exists($filePath)) {
             throw new ConfigurationNotFound();
         }
-
-        $this->config = require $filePath;
+        
+        $this->config[$key] = require $filePath;
     }
-
+    
     public function getDatabase(): array
     {
         return $this->getConfigurationItem('Database');
     }
-
+    
     public function getRoutes(): array
     {
         return $this->getConfigurationItem('Routes');
+    }
+    
+    public function getApplication(): array
+    {
+        return $this->getConfigurationItem('Application');
     }
     
     private function getConfigurationItem($key)
@@ -40,8 +47,8 @@ class ConfigurationParser
     public function __call($name, $args)
     {
         $name = str_replace('get', '', $name);
-
-       return $this->getConfigurationItem($name);
+        
+        return $this->getConfigurationItem($name);
     }
     
 }

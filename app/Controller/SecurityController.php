@@ -14,7 +14,7 @@ class SecurityController extends AbstractController
         $captcha = new Captcha();
 
         if ($this->request->getMethod() === 'POST') {
-            $admin = $this->config('Admin');
+            $admin = $this->config('Application')['Admin'];
             $data = $this->request->post->data();
 
             if ($captcha->validate($data['inputCaptcha'])) {

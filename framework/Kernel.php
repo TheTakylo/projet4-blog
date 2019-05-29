@@ -29,6 +29,7 @@ class Kernel
     {
         $this->initializeEnvironement();
 
+
         $store = Store::getInstance();
         $store->set('Config', $this->config);
         $store->set('Database', (new Database($this->config->getDatabase()))->getConnection());

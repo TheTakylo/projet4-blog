@@ -1,4 +1,7 @@
 <?php
+
+ini_set("display_errors", "on");
+
 function dump($var)
 {
     echo '<pre>', var_dump($var), '</pre>';
@@ -15,7 +18,11 @@ require '../vendor/autoload.php';
 use Framework\Configuration\ConfigurationParser;
 use Framework\Kernel;
 
-$config = new ConfigurationParser(ROOT . DS . 'config.php');
+$config = new ConfigurationParser();
+
+$config->register('Application', 'application.php');
+$config->register('Database', 'database.php');
+$config->register('Routes', 'routes.php');
 
 $application = new Kernel($config->getApplication(), $config);
 
