@@ -13,11 +13,22 @@ class Urls
 
     static function match($routeName): bool
     {
-        if(!$route = Store::getInstance()->getRouter()->match()->getFullName() === $routeName) {
-            return false;
+        if(is_array($routeName)) {
+            foreach($routeName as $route => $v) {
+                if(Store::getInstance()->getRouter()->match()->getFullName() !== $v) {
+                    continue;
+                }
+
+                return true;
+            }
+        }
+
+
+        if(Store::getInstance()->getRouter()->match()->getFullName() === $routeName) {
+            return true;
         }
         
-        return true;
+        return false;
     }
 
     static function prefix($group): bool

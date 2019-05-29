@@ -24,7 +24,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?= (Urls::match('admin@chapters')) ? 'active' : ''; ?>" href="<?= Urls::route('admin@chapters'); ?>">
+            <a class="nav-link <?= (Urls::match(['admin@chapters', 'admin@chapterNew', 'admin@chapterEdit'])) ? 'active' : ''; ?>" href="<?= Urls::route('admin@chapters'); ?>">
               Chapitres
             </a>
           </li>
