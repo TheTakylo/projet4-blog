@@ -50,7 +50,7 @@
                <?= ($comment->is_admin == 0) ? $comment->pseudo : "<strong>{$comment->pseudo}</strong> <small class='badge badge-primary'>auteur</small>" ?> 
                <small class="ml-2">
                le <?= date('d/m/y à H:i', strtotime($comment->created_at)); ?>
-               <?= ($comment->is_admin == 0) ? "<a href='".Urls::route('comments@spam', ['comment_id' => $comment->id])."'>signaler</a>" : ''; ?>
+               <?= ($comment->is_admin == 0) && ($comment->is_valid == false) ? "<a href='".Urls::route('comments@spam', ['comment_id' => $comment->id])."'>signaler</a>" : ''; ?>
                </small>
             </h5>
             <p><?= $comment->content ?></p>

@@ -35,7 +35,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link <?= (Urls::match('admin@commentsSpam')) ? 'active' : ''; ?>" href="<?= Urls::route('admin@commentsSpam'); ?>">
-              Spam
+              Commentaires signalées
             </a>
           </li>
           <li class="nav-item mt-4">

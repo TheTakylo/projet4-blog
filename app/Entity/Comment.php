@@ -25,7 +25,10 @@ class Comment extends AbstractEntity
 
     /** @var bool */
     private $is_spam;
-    
+
+    /** @var bool */
+    private $is_valid;
+
     /** @var \DateTime */
     private $created_at;
 
@@ -37,6 +40,7 @@ class Comment extends AbstractEntity
         $this->created_at = new \DateTime();
         $this->is_spam = false;
         $this->is_admin = false;
+        $this->is_valid = false;
     }
 
     public static function getTableName(): string
@@ -56,6 +60,7 @@ class Comment extends AbstractEntity
             new SchemaParameter('content', 'content', 'string'),
             new SchemaParameter('is_admin', 'is_admin', 'bool'),
             new SchemaParameter('is_spam', 'is_spam', 'bool'),
+            new SchemaParameter('is_valid', 'is_valid', 'bool'),
             new SchemaParameter('created_at', 'created_at', 'datetime'),
             new SchemaParameter('chapter_id', 'chapter_id', 'int')
         ];
@@ -144,9 +149,9 @@ class Comment extends AbstractEntity
     /**
      * Get the value of is_admin
      */ 
-    public function getIs_admin()
+    public function getIs_admin(): bool
     {
-        return $this->is_admin;
+        return (bool) $this->is_admin;
     }
 
     /**
@@ -154,7 +159,7 @@ class Comment extends AbstractEntity
      *
      * @return  self
      */ 
-    public function setIs_admin($is_admin)
+    public function setIs_admin(bool $is_admin)
     {
         $this->is_admin = $is_admin;
 
@@ -164,9 +169,9 @@ class Comment extends AbstractEntity
     /**
      * Get the value of is_spam
      */ 
-    public function getIs_spam()
+    public function getIs_spam(): bool
     {
-        return $this->is_spam;
+        return (bool) $this->is_spam;
     }
 
     /**
@@ -174,7 +179,7 @@ class Comment extends AbstractEntity
      *
      * @return  self
      */ 
-    public function setIs_spam($is_spam)
+    public function setIs_spam(bool $is_spam)
     {
         $this->is_spam = $is_spam;
 
@@ -217,6 +222,26 @@ class Comment extends AbstractEntity
     public function setChapter_id($chapter_id)
     {
         $this->chapter_id = $chapter_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of is_valid
+     */ 
+    public function getIs_valid(): bool
+    {
+        return (bool) $this->is_valid;
+    }
+
+    /**
+     * Set the value of is_valid
+     *
+     * @return  self
+     */ 
+    public function setIs_valid(bool $is_valid)
+    {
+        $this->is_valid = $is_valid;
 
         return $this;
     }

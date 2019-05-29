@@ -11,7 +11,7 @@ class CommentRepository extends AbstractRepository
     {
         return Comment::class;
     }
-
+    
     /** @return Comment[] */
     public function findAllForAdmin(): array
     {
@@ -19,20 +19,26 @@ class CommentRepository extends AbstractRepository
         FROM comments 
         LEFT JOIN chapters ON comments.chapter_id = chapters.id
         ORDER BY comments.id DESC";
-
+        
         $query = $this->db->prepare($query);
-
+        
         $query->execute();
-
+        
         return $this->hydrateEntities($query->fetchAll());
     }
-
-    public function setSpam($id)
+    
+    public function setSpam($id): bool
     {
-        $query = "UPDATE comments SET is_spam = 1 WHERE id=:id";
-
-        $query = $this->db->prepare($query);
-
+        $query = $this->db->prepare("UPDATE comments SET is_spam = 1 WHERE id=:id");
+        
         return $query->execute(['id' => $id]);
     }
+    
+    public function valid($id): bool
+    {
+        $query = $this->db->prepare("UPDATE comments SET is_spam = 0, is_valid = 1 WHERE id=:id");
+        
+        return $query->execute(['id' => $id]);
+    }
+    
 }

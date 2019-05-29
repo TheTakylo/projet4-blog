@@ -21,6 +21,7 @@ return [
         ['/commentaires/spam', 'admin@commentsSpam', ['GET']],
         ['/commentaires/:id', 'admin@commentDelete', ['DELETE']],
         ['/commentaires/:id', 'admin@commentDelete', ['DELETE']],
+        ['/commentaires/:id', 'admin@commentValid', ['POST']],
         
         ['/login', 'security@login', ['GET', 'POST']],
         ['/logout', 'security@logout', ['GET']]

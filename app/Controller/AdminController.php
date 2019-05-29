@@ -141,4 +141,15 @@ class AdminController extends AbstractController
         return $this->render('admin/comments/list.php', ['comments' => $comments]);
     }
 
+    public function commentValid($id): Response
+    {
+        if($this->commentRepository->valid($id)) {
+            $this->flash()->add('success', 'Le commentaire à bien été validé');
+        } else {
+            $this->flash()->add('danger', 'Erreur, le commentaire n\'a pas été validé');
+        }
+
+        return $this->referer();
+    }
+
 }
